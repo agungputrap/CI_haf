@@ -1,0 +1,42 @@
+img{
+	display: block;
+    max-width:150px;
+    max-height:300px;
+    width: auto;
+    height: auto;
+}
+h13{
+	font-family: Consolas, Monaco, Courier New, Courier, monospace;
+	font-size: 16px;
+	background-color: #f9f9f9;
+	border: 1px solid #D0D0D0;
+	color: #002166;
+	display: block;
+	margin: 14px 0 14px 0;
+	padding: 12px 10px 12px 10px;
+	text-align: center;
+}
+#container{
+		margin: 10px;
+		border: 1px solid #D0D0D0;
+		background-color: white;
+		-webkit-box-shadow: 0 0 8px #D0D0D0;
+}
+#homebody{
+		background-color: gray;
+}
+#homer{
+		background-color: white;
+}
+.clockStyle {
+	text-align: center;
+	background-color:#ffffff;
+	border:#000000 2px inset;
+	padding:6px;
+	color:#000000;
+	font-family:"Arial Black", Gadget, sans-serif;
+    font-size:16px;
+    font-weight:bold;
+	letter-spacing: 2px;
+	display:inline;
+}
