@@ -8,6 +8,7 @@ class login_model extends CI_Model
 		parent::__construct();
 	}
 
+	//check apakah ada username dan password yang dimaksud
 	function get_user($usr, $pwd)
 	{
 		$sql = "select * from user where username = " .'"'. $usr .'"'. " and password = " .'"'. $pwd .'"'. " and status_akun = 'aktif'";
@@ -15,6 +16,7 @@ class login_model extends CI_Model
 		return $query->num_rows();
 	}
 
+	//check apakah ada user lain yang berusaha masuk ke suatu username, sedangkan user yang pertama sedang login
 	function check_login_twice($usr, $pwd)
 	{
 		$sql = "select * from user where username = " .'"'. $usr .'"'. " and password = " .'"'. $pwd .'"'. " and status_akun = 'aktif' and status_login ='Invalid'";
@@ -22,13 +24,20 @@ class login_model extends CI_Model
 		return $query->num_rows();
 	}
 
+	//ganti flag dari status_login
 	function set_login_valid($usr, $pwd){
 		$sql = "update user set status_login = 'Valid' where username = " .'"'. $usr .'"'. " and password = " .'"'. $pwd .'"'. "";
 		$this->db->query($sql);
 	}
 
+	//ganti flag dari status_login
 	function set_login_invalid($usr){
 		$sql = "update user set status_login = 'Invalid' where username = " .'"'. $usr .'"'. "";
 		$this->db->query($sql);
+	}
+
+	function check_flag_set($usr){
+		$sql = "select status_login from user where username = " .'"'. $usr .'"'. "";
+		return $query->num_rows();
 	}
 } ?>

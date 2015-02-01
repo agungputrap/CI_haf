@@ -25,11 +25,21 @@ class login extends CI_Controller
 		$this->form_validation->set_rules("txt_username","Username","trim|required");
 		$this->form_validation->set_rules("txt_password","Password","trim|required");
 		$this->load->view("header_view");
+		date_default_timezone_set('Asia/Jakarta');
+		$date = getdate();
+		$day = $date['weekday'];
+		$month = $date['month'];
+		$year = $date['year'];
+		$ready['day'] = $day;
+		$ready['month'] = $month;
+		$ready['year'] = $year;
+		
+
 
 		if ($this->form_validation->run()==FALSE)
 		{
 			//validation fails
-			$this->load->view("login_view");
+			$this->load->view("login_view",$ready);
 			$this->load->view("footer_view");
 		}
 		else
@@ -44,7 +54,7 @@ class login extends CI_Controller
 						$login_check = $this->login_model->check_login_twice($username, $password);
 						if($login_check > 0)
 						{
-							$this->login_model->set_login_valid($username, $password);
+							//$this->login_model->set_login_valid($username, $password);
 							$sessiondata = array('username'=> $username, 'loginuser'=> TRUE);
 							$this->session->set_userdata($sessiondata);
 							redirect("home_siswa/home");

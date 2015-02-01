@@ -5,7 +5,7 @@
 			<img src="<?php echo base_url("assets/images/bonie.jpg"); ?>" class="img-responsive" alt="Responsive image">
 		</div>
 		<div class="col-md-6 col-md-offset-1">
-			<?php foreach ($data[0] as $key => $value) {
+			<?php foreach ($data as $key => $value) {
 				if ($key=="Id"|$key=="Id_User"|$key=="Username"|$key=="Password"|$key=="Status_Akun"|$key=="Status_Login")
 				{
 
@@ -21,6 +21,8 @@
 					echo"</div>";
 				}
 			} ?>
+			
+			
 			<!--
 
 			<div class="row">

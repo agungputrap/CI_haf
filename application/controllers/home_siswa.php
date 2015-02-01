@@ -21,17 +21,25 @@
 			}
 			else
 			{
-				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $this->home_model->loadData($this->session->userdata('username')));
-				//var_dump($var_param1);
-				var_dump($var_param);
-				echo "\n";
-				//var_dump($var_param);
+				//simpan semua data yang penting dalam variabel temp
+				$temp = $this->home_model->loadData($this->session->userdata('username'));
+
+				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
+				$throw = @$temp[0];
+
+				//simpan disuatu array yang memiliki key -> value
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $throw);
+				
+				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
 				$this->load->view("header_inweb_view",$var_param);
+
+				//jadikan parameter dari home_siswa untuk memberikan data tentang siswa tersebut
 				$this->load->view('home_siswa_view',$var_param);
 				$this->load->view("footer_view");		
 			}
 		}
 
+		//untuk menghancurkan session ketika logout
 		public function logout(){
 			$var_param['this_user'] = $this->session->userdata('username');
 			$this->login_model->set_login_invalid($var_param['this_user']);

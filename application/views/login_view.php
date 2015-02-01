@@ -36,7 +36,6 @@
 	               <div class="col-lg-12 col-sm-12 text-center">
 	                    <input id="btn_login" name="btn_login" type="submit" class="btn btn-default" value="Login" />
 	                    <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
-	                    <a href="absen/index">isi absen ? </a>
 	               </div>
 	               </div>
 	         	</fieldset>
@@ -44,7 +43,7 @@
 	         	<?php echo $this->session->flashdata('msg'); ?>
          	</div>
          	<div class="col-lg-3 col-sm-3 col-lg-offset-1 col-sm-offset-1">
-         		<h2 align="center">Clock </h2>
+         		<h3 align="center"> <?php echo $day."-".$month."-".$year ?> </h3>
          		<hr/>
          		<div id="clockDisplay" class="clockStyle col-lg-offset-3"><script type="text/javascript" src="<?php echo base_url("assets/js/clock.js"); ?>"></script></div>
          	</div>

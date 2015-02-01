@@ -8,6 +8,7 @@ class home_model extends CI_Model{
 		parent::__construct();
 	}
 
+	//untuk mengambil semua data tentang siswa
 	function loadData($user)
 	{
 		$sql = "select * from siswa A, user B where A.id_user = B.id and B.username='".$user."'";

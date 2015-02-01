@@ -28,5 +28,10 @@
 	         	<?php echo form_close(); ?>
 	         	<?php echo $this->session->flashdata('msg'); ?>
          	</div>
+         	<div class="col-lg-3 col-sm-3 col-lg-offset-1 col-sm-offset-1">
+         		<h3 align="center"> <?php echo $day."-".$month."-".$year ?> </h3>
+         		<hr/>
+         		<div id="clockDisplay" class="clockStyle col-lg-offset-3"><script type="text/javascript" src="<?php echo base_url("assets/js/clock.js"); ?>"></script></div>
+         	</div>
     	</div>
 	</div>
