@@ -54,10 +54,26 @@ class login extends CI_Controller
 						$login_check = $this->login_model->check_login_twice($username, $password);
 						if($login_check > 0)
 						{
-							//$this->login_model->set_login_valid($username, $password);
+							$temp1 = $this->login_model->check_role($username, $password);
 							$sessiondata = array('username'=> $username, 'loginuser'=> TRUE);
 							$this->session->set_userdata($sessiondata);
-							redirect("home_siswa/home");
+							$temp2 = $temp1[0];
+							$role = $temp2['role'];
+							if ($role == "Siswa") {
+								redirect("home_siswa/home");
+							}
+							elseif ($role == "Staff") {
+								redirect("home_staff/home");
+							}
+							elseif ($role == "Guru") {
+								redirect("home_guru/home");
+							}
+							elseif ($role == "Manajer") {
+								redirect("home_manajer/home");
+							}
+							else{
+								redirect("home_admin/home");
+							}
 						}
 						else
 						{
