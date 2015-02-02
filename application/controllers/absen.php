@@ -129,7 +129,7 @@ class absen extends CI_Controller
 
 									//ambil bagian menitnya saja lalu ubah kedalam integer
 									$var2 = (int)substr($var1["waktu_mulai"],3,2);
-									if ($var2 < $minutesnow) {
+									if ($var2 > $minutesnow) {
 										//Jika nilai jamnya = nilai jam shift, namun menitnya lebih dari menit shift nya, maka status akan menjadi "Terlambat"
 										$status = "Terlambat";
 									}
@@ -142,7 +142,7 @@ class absen extends CI_Controller
 								$check_duplikat = $this->absen_model->duplikat($nama,$id_tugas);
 
 								//Kalau staff ngabsen tapi belum pada jadwalnya, maka ada error message
-								if ($dec_outtime[$index] >= $hoursnow && $status != "Terlambat") {
+								if ($dec_outtime[$index - 1] >= $hoursnow && $status != "Terlambat" && $index > 1) {
 									$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan jadwalnya ngabsen pak!!!</div>');
 									redirect('absen/index');
 								}
