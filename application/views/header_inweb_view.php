@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Login Form</title>
 	<link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.css"); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url("assets/css/hafiyan.css"); ?>" />
 	<style type="text/css">
 		.colbox{
 			margin-left: 0px;
@@ -29,30 +30,30 @@
 				<div class="row top50">
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"beranda")== 0) {
-							echo "<a class='btn active' href='home'>Beranda</a>";
+							echo "<a class='btn active btn-success' href='home'>Beranda</a>";
 						} else {
-							echo "<a class='btn' href='home'>Beranda</a>";
+							echo "<a class='btn btn-success' href='home'>Beranda</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"Nilai TO")== 0) {
-							echo "<a class='btn active'href='nilaiTO'>Nilai TO</a>";
+							echo "<a class='btn active btn-success'href='nilaiTO'>Nilai TO</a>";
 						} else {
-							echo "<a class='btn' href='nilaiTO'>Nilai TO</a>";
+							echo "<a class='btn btn-success' href='nilaiTO'>Nilai TO</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"absensi")== 0) {
-							echo "<a class='btn active'href='absensi'>Absensi</a>";
+							echo "<a class='btn active btn-success'href='absensi'>Absensi</a>";
 						} else {
-							echo "<a class='btn'href='absensi'>Absensi</a>";
+							echo "<a class='btn btn-success'href='absensi'>Absensi</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"pembayaran")== 0) {
-							echo "<a class='btn active'href='pembayaran'>Pembayaran</a>";
+							echo "<a class='btn active btn-success'href='pembayaran'>Pembayaran</a>";
 						} else {
-							echo "<a class='btn'href='pembayaran'>Pembayaran</a>";
+							echo "<a class='btn btn-success'href='pembayaran'>Pembayaran</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">

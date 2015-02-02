@@ -11,6 +11,7 @@
 			$this->load->database();
 			$this->load->model('login_model');
 			$this->load->model('home_model');
+			$this->load->model('pembayaran_model');
 		}
 
 		public function home()
@@ -25,10 +26,9 @@
 				$temp = $this->home_model->loadData($this->session->userdata('username'));
 
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
-				$throw = @$temp[0];
 
 				//simpan disuatu array yang memiliki key -> value
-				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $throw);
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $temp);
 				
 				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
 				$this->load->view("header_inweb_view",$var_param);
@@ -85,9 +85,14 @@
 			}
 			else
 			{
+				//simpan semua data yang penting dalam variabel temp
+				$temp = $this->pembayaran_model->get_pembayaran($this->session->userdata('username'));
+				$temp_status = $this->pembayaran_model->get_sisaStatus_pembayaran($this->session->userdata('username'));
+
+				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"pembayaran");
-				$this->load->view("header_inweb_view",$var_param);
+					"halaman"=>"pembayaran","data" =>$temp,"data_status" => $temp_status );
+				$this->load->view("header_inweb_view",@$var_param);
 				$this->load->view('pembayaran_siswa_view',$var_param);
 				$this->load->view("footer_view");	
 			}
