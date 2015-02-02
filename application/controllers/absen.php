@@ -142,9 +142,11 @@ class absen extends CI_Controller
 								$check_duplikat = $this->absen_model->duplikat($nama,$id_tugas);
 
 								//Kalau staff ngabsen tapi belum pada jadwalnya, maka ada error message
-								if ($dec_outtime[$index - 1] >= $hoursnow && $status != "Terlambat" && $index > 1) {
-									$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan jadwalnya ngabsen pak!!!</div>');
-									redirect('absen/index');
+								if ($index > 1) {
+									if ($dec_outtime[$index - 1] >= $hoursnow && $status != "Terlambat") {
+										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan jadwalnya ngabsen pak!!!</div>');
+										redirect('absen/index');
+									}
 								}
 								else{
 									//Kalau staff ngabsen tapi sebelumnya udah absen, maka ada error message
