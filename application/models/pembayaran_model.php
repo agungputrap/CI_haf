@@ -8,6 +8,13 @@ class pembayaran_model extends CI_Model
 		parent::__construct();
 	}
 
+	function loadData($user)
+	{
+		$sql = "select * from siswa A, user B where A.id_user = B.id and B.username='".$user."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 	//resume pembayaran
 	function get_pembayaran($user)
 	{

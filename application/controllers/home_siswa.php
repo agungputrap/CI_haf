@@ -86,12 +86,13 @@
 			else
 			{
 				//simpan semua data yang penting dalam variabel temp
-				$temp = $this->pembayaran_model->get_pembayaran($this->session->userdata('username'));
+				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
+				$temp_data_pembayaran = $this->pembayaran_model->get_pembayaran($this->session->userdata('username'));
 				$temp_status = $this->pembayaran_model->get_sisaStatus_pembayaran($this->session->userdata('username'));
 
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"pembayaran","data" =>$temp,"data_status" => $temp_status );
+					"halaman"=>"pembayaran","data" =>$temp_data_user,"data_pembayaran" => $temp_data_pembayaran,"data_status" => $temp_status );
 				$this->load->view("header_inweb_view",@$var_param);
 				$this->load->view('pembayaran_siswa_view',$var_param);
 				$this->load->view("footer_view");	

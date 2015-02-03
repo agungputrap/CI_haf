@@ -1,14 +1,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-4 well">
-			<h1> <?php echo ($data[0]['nama']) ?> </h1>
+			<h1> <?php echo ($data[0]['Nama']) ?> </h1>
 			<img src="<?php echo base_url("assets/images/bonie.jpg"); ?>" class="img-responsive img-haf" alt="Responsive image">
 		</div>
 		<div class="col-md-6 col-md-offset-1">
 			<?php foreach ($data_status[0] as $key => $value) {
 				if($key=="Status_Pembayaran" & $value=="Lunas")
 				{
-					echo "pembayaran telah lunas";
+					echo "<h1>pembayaran telah lunas</h1>";
+					break;
 				}
 				else 
 				{
@@ -33,7 +34,7 @@
 					<td>Nama Staff</td>
 					<td>Tanggal Pembayaran</td>
 				</tr>
-				<?php if(count($data)==0)
+				<?php if(count($data_pembayaran)==0)
 				{
 					echo "<tr>";
 					for ($i=0; $i < 6; $i++) { 
