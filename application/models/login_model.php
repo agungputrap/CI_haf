@@ -40,4 +40,10 @@ class login_model extends CI_Model
 		$sql = "select status_login from user where username = " .'"'. $usr .'"'. "";
 		return $query->num_rows();
 	}
+
+	function check_role($usr, $pwd){
+		$sql = "select Role from user where username = '". $usr ."'". " and password = " ."'". $pwd ."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 } ?>

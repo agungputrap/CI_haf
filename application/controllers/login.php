@@ -54,11 +54,11 @@ class login extends CI_Controller
 						$login_check = $this->login_model->check_login_twice($username, $password);
 						if($login_check > 0)
 						{
-							$temp1 = $this->login_model->check_role($username, $password);
+							$temp2 = $this->login_model->check_role($username, $password);
 							$sessiondata = array('username'=> $username, 'loginuser'=> TRUE);
 							$this->session->set_userdata($sessiondata);
-							$temp2 = $temp1[0];
-							$role = $temp2['role'];
+							$temp = $temp2[0];
+							$role = $temp['Role'];
 							if ($role == "Siswa") {
 								redirect("home_siswa/home");
 							}
