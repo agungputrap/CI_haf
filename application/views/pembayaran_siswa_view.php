@@ -24,20 +24,35 @@
 			} ?>
 		</div>
 		<div class="col-md-6 col-md-offset-1">
-			<?php foreach ($data as $list) {
-				foreach ($list as $key => $value) {
-					echo "<div class='row'>";
-						echo "<div class='col-md-3'>";
-							echo"<label>".str_replace("_", " ", $key)."</label>";
-						echo "</div>";
-						echo "<div class='col-md-5 col-md-offset-1'>";
-							echo "<p>".$value."</p>";
-						echo "</div>";
-					echo"</div>";
+			<table class="table table-striped">
+				<tr>
+					<td>Kode Pembayaran</td>
+					<td>Atas Nama</td>
+					<td>Nama</td>
+					<td>Staff Yang Menerima</td>
+					<td>Nama Staff</td>
+					<td>Tanggal Pembayaran</td>
+				</tr>
+				<?php if(count($data)==0)
+				{
+					echo "<tr>";
+					for ($i=0; $i < 6; $i++) { 
+						echo "<td> - </td>";
+					}
+					echo "</tr>";
 				}
-				echo "<hr/>";
-				echo "<hr/>";
-			} ?>
+				else
+				{
+					foreach ($data as $list) {
+					echo "<tr>";
+					foreach ($list as $value) {
+						echo "<td>".$value."</td>";
+					}
+					echo "</tr>";
+				}
+				}
+				?>
+			</table>
 		</div>
 	</div>
 </div>
