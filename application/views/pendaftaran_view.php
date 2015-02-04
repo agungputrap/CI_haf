@@ -53,8 +53,7 @@
 	                    <label for="txt_username" class="control-label">Alamat</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
-	                    <textarea class="form-control" id="txt_username" name="txt_username" placeholder="Username" type="text" value="<?php echo set_value('txt_alamat'); ?>" />
-	                    <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
+	                    <textarea name="txt_alamat" form ="daftarform" rows="4" cols="50"></textarea>
 	               </div>
 	               </div>
 	               </div>

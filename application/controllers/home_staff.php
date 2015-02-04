@@ -8,6 +8,7 @@
 			$this->load->library('session');
 			$this->load->helper('url');
 			$this->load->helper('html');
+			$this->load->helper('form');
 			$this->load->database();
 			$this->load->model('login_model');
 			$this->load->model('home_model');
@@ -26,10 +27,9 @@
 				$temp = $this->staff_model->loadData($this->session->userdata('username'));
 
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
-				$throw = @$temp[0];
 
 				//simpan disuatu array yang memiliki key -> value
-				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $throw);
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $temp);
 				
 				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
 				$this->load->view("header_staffweb_view",$var_param);
