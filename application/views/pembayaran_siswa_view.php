@@ -5,55 +5,93 @@
 			<img src="<?php echo base_url("assets/images/bonie.jpg"); ?>" class="img-responsive img-haf" alt="Responsive image">
 		</div>
 		<div class="col-md-6 col-md-offset-1">
-			<?php foreach ($data_status[0] as $key => $value) {
-				if($key=="Status_Pembayaran" & $value=="Lunas")
+			<?php
+				if ($data_status[0]["Status_Pembayaran"]=="Belum Lunas") 
 				{
-					echo "<h1>pembayaran telah lunas</h1>";
-					break;
-				}
-				else 
-				{
-					echo "<div class='row'>";
-						echo "<div class='col-md-3'>";
+				 	foreach ($data_status[0] as $key => $value) {
+				 		//menampilkan status
+				 		echo "<div class='row'>";
+						echo "<div class='col-md-6'>";
 							echo"<label>".str_replace("_", " ", $key)."</label>";
 						echo "</div>";
 						echo "<div class='col-md-5 col-md-offset-1'>";
 							echo "<p>".$value."</p>";
 						echo "</div>";
-					echo"</div>";
-				}
-			} ?>
-		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<table class="table table-striped">
-				<tr>
-					<td>Kode Pembayaran</td>
-					<td>Atas Nama</td>
-					<td>Nama</td>
-					<td>Staff Yang Menerima</td>
-					<td>Nama Staff</td>
-					<td>Tanggal Pembayaran</td>
-				</tr>
-				<?php if(count($data_pembayaran)==0)
-				{
+						echo"</div>";
+				 	}
+				 	//menampilkan tabel pembayaran
+					echo "<div class='col-md-6'>";
+					echo "<table class='table table-striped'>";
 					echo "<tr>";
+						echo "<td>Kode Pembayaran</td>";
+						echo "<td>Atas Nama</td>";
+						echo "<td>Nama</td>";
+						echo "<td>Staff Yang Menerima</td>";
+						echo "<td>Nama Staff</td>";
+						echo "<td>Tanggal Pembayaran</td>";
+					echo "</tr>";
+					foreach ($data_pembayaran as $list) {
+						echo "<tr class='warning'>";
+						foreach ($list as $value_tabel) {
+							echo "<td>".$value_tabel."</td>";
+						}
+						echo "</tr>";
+					}			
+					echo "</table>";
+					echo "</div>";
+				 } 
+				 elseif ($data_status[0]["Status_Pembayaran"]=="Lunas" & count($data_pembayaran)!=0) 
+				 {
+				 	//menampilkan status pembayaran 
+					echo "<h1>Pembayaran telah lunas</h1>";
+					echo "</div>";
+
+					//menampilkan tabel pembayaran
+					echo "<div class='col-md-6 col-md-offset-1'>";
+					echo "<table class='table table-striped'>";
+					echo "<tr>";
+						echo "<td>Kode Pembayaran</td>";
+						echo "<td>Atas Nama</td>";
+						echo "<td>Nama</td>";
+						echo "<td>Staff Yang Menerima</td>";
+						echo "<td>Nama Staff</td>";
+						echo "<td>Tanggal Pembayaran</td>";
+					echo "</tr>";
+					foreach ($data_pembayaran as $list) {
+						echo "<tr class='info'>";
+						foreach ($list as $value_tabel) {
+							echo "<td>".$value_tabel."</td>";
+						}
+						echo "</tr>";
+					}			
+					echo "</table>";
+					echo "</div>";
+				 }
+				 else {
+				 	//menampilkan status pembayaran 
+					echo "<h1>Pembayaran telah Lunas</h1>";
+					echo "</div>";
+
+					//menampilkan tabel pembayaran
+					echo "<div class='col-md-6 col-md-offset-1'>";
+					echo "<table class='table table-striped'>";
+					echo "<tr>";
+						echo "<td>Kode Pembayaran</td>";
+						echo "<td>Atas Nama</td>";
+						echo "<td>Nama</td>";
+						echo "<td>Staff Yang Menerima</td>";
+						echo "<td>Nama Staff</td>";
+						echo "<td>Tanggal Pembayaran</td>";
+					echo "</tr>";
 					for ($i=0; $i < 6; $i++) { 
 						echo "<td> - </td>";
 					}
 					echo "</tr>";
-				}
-				else
-				{
-					foreach ($data as $list) {
-					echo "<tr>";
-					foreach ($list as $value) {
-						echo "<td>".$value."</td>";
-					}
-					echo "</tr>";
-				}
-				}
-				?>
-			</table>
+					echo "</table>";
+					echo "</div>";
+				 }
+				  
+			?>
 		</div>
 	</div>
 </div>
