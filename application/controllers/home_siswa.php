@@ -39,13 +39,15 @@
 			}
 		}
 
-		//untuk menghancurkan session ketika logout
 		public function logout(){
 			$var_param['this_user'] = $this->session->userdata('username');
 			$this->login_model->set_login_invalid($var_param['this_user']);
 			$newdata = array('username'=>$var_param['this_user'], 'loginuser'=>FALSE);
+
+			//untuk menghancurkan session ketika logout
 			$this->session->unset_userdata($newdata);
 	   		$this->session->sess_destroy();
+
 	   		redirect('login');
 		}
 
@@ -56,8 +58,9 @@
 			}
 			else
 			{
+				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"Nilai TO");
+					"halaman"=>"Nilai TO","data"=>$temp_data_user);
 				$this->load->view("header_inweb_view",$var_param);
 				$this->load->view('nilaiTO_siswa_view',$var_param);
 				$this->load->view("footer_view");	
@@ -71,8 +74,9 @@
 			}
 			else
 			{
+				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi");
+					"halaman"=>"absensi","data"=>$temp_data_user);
 				$this->load->view("header_inweb_view",$var_param);
 				$this->load->view('absensi_siswa_view',$var_param);
 				$this->load->view("footer_view");	
