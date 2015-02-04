@@ -19,6 +19,14 @@
 		.top30 { margin-top:30px; }
 		.top50 { margin-top:50px; }
 	</style>
+	<script>
+	if ($('#program').val()===('NULL')){
+		$("b").remove();
+	};
+	else{
+		$("p").append(" <b>Appended text</b>.");
+	}
+	</script>
 </head>
 <body>
 	<div class ="container">

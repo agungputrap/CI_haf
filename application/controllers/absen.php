@@ -168,8 +168,6 @@ class absen extends CI_Controller
 											$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Error woy admin!!!</div>');
 											redirect('absen/index');
 										}
-										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Error woy admin!!!</div>');
-										redirect('absen/index');
 									}
 								}
 								

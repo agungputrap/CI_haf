@@ -21,7 +21,7 @@
 	               </div>	                              
 	               <div class="form-group">
 	               <div class="col-lg-12 col-sm-12 text-center">
-	                    <input id="btn_login" name="btn_absen" type="submit" class="btn btn-default" value="Absen" />
+	                    <input id="btn_login" name="btn_absen" type="submit" class="btn btn-success" value="Absen" />
 	               </div>
 	               </div>
 	         	</fieldset>

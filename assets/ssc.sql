@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2015 at 06:17 AM
+-- Generation Time: Feb 04, 2015 at 01:54 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -42,12 +42,20 @@ CREATE TABLE IF NOT EXISTS `absensi_guru` (
 
 CREATE TABLE IF NOT EXISTS `absensi_siswa` (
 `Id_Absen` int(8) NOT NULL,
-  `Kode_SSC` int(8) NOT NULL,
+  `Nama_Siswa` varchar(30) NOT NULL,
   `Kode_Jadwal` int(3) NOT NULL,
-  `Staff_yang_mengabsen` int(8) NOT NULL,
+  `Staff_yang_mengabsen` varchar(30) NOT NULL,
   `Tanggal` date NOT NULL,
   `Waktu` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `absensi_siswa`
+--
+
+INSERT INTO `absensi_siswa` (`Id_Absen`, `Nama_Siswa`, `Kode_Jadwal`, `Staff_yang_mengabsen`, `Tanggal`, `Waktu`) VALUES
+(6, 'Vierra Citra', 4, 'Saeful Bahri', '2015-02-04', '19:51:46'),
+(7, 'Waliyyin Razan Qanit', 3, 'Saeful Bahri', '2015-02-04', '19:52:20');
 
 -- --------------------------------------------------------
 
@@ -62,14 +70,15 @@ CREATE TABLE IF NOT EXISTS `absensi_staff` (
   `Tanggal` date NOT NULL,
   `Waktu` time NOT NULL,
   `Status` varchar(12) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `absensi_staff`
 --
 
 INSERT INTO `absensi_staff` (`Id_Absen`, `Kode_Tugas`, `username`, `Tanggal`, `Waktu`, `Status`) VALUES
-(12, 3, 'Dadang Reza', '2015-01-31', '22:40:21', 'Terlambat');
+(12, 3, 'Dadang Reza', '2015-01-31', '22:40:21', 'Terlambat'),
+(14, 2, 'Saeful Bahri', '2015-02-02', '12:26:05', 'Berhasil');
 
 -- --------------------------------------------------------
 
@@ -128,18 +137,19 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   `Kode_Kelas` int(5) NOT NULL,
   `Kode_Shift` char(4) NOT NULL,
   `Kode_Guru` char(2) NOT NULL,
-  `Hari` varchar(8) NOT NULL
+  `Hari` varchar(16) NOT NULL,
+  `Tanggal_Mulai` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jadwal`
 --
 
-INSERT INTO `jadwal` (`Id_Jadwal`, `Kode_Kelas`, `Kode_Shift`, `Kode_Guru`, `Hari`) VALUES
-(1, 801, 'B01', 'AS', 'Senin'),
-(2, 802, 'B01', 'DA', 'Senin'),
-(3, 801, 'B02', 'DA', 'Senin'),
-(4, 802, 'B02', 'AS', 'Senin');
+INSERT INTO `jadwal` (`Id_Jadwal`, `Kode_Kelas`, `Kode_Shift`, `Kode_Guru`, `Hari`, `Tanggal_Mulai`) VALUES
+(1, 801, 'B01', 'AS', 'Monday', '2015-01-05'),
+(2, 802, 'B01', 'DA', 'Monday', '2015-01-05'),
+(3, 801, 'B02', 'DA', 'Wednesday', '2015-01-05'),
+(4, 802, 'B02', 'AS', 'Wednesday', '2015-01-05');
 
 -- --------------------------------------------------------
 
@@ -182,6 +192,7 @@ INSERT INTO `kelas` (`Kode`, `Program`) VALUES
 
 CREATE TABLE IF NOT EXISTS `pembayaran` (
 `Kode_Pembayaran` int(8) NOT NULL,
+  `Tipe_Transaksi` varchar(16) NOT NULL,
   `Atas_Nama` int(8) NOT NULL,
   `Staff_yang_menerima` int(8) NOT NULL,
   `Nominal` int(8) NOT NULL,
@@ -222,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `shift_ssc` (
 
 INSERT INTO `shift_ssc` (`Kode_Shift`, `Waktu_Mulai`, `Waktu_Berakhir`) VALUES
 ('B01', '14:30:00', '15:45:00'),
-('B02', '16:15:00', '17:30:00'),
+('B02', '19:30:00', '20:30:00'),
 ('S01', '09:00:00', '12:00:00'),
 ('S02', '13:00:00', '17:30:00');
 
@@ -344,7 +355,7 @@ ALTER TABLE `absensi_guru`
 -- Indexes for table `absensi_siswa`
 --
 ALTER TABLE `absensi_siswa`
- ADD PRIMARY KEY (`Id_Absen`,`Kode_SSC`,`Kode_Jadwal`,`Staff_yang_mengabsen`);
+ ADD PRIMARY KEY (`Id_Absen`);
 
 --
 -- Indexes for table `absensi_staff`
@@ -437,12 +448,12 @@ MODIFY `Id_Absen` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `absensi_siswa`
 --
 ALTER TABLE `absensi_siswa`
-MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT;
+MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `absensi_staff`
 --
 ALTER TABLE `absensi_staff`
-MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `biaya_ssc`
 --
