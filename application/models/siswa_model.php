@@ -62,5 +62,27 @@ class siswa_model extends CI_Model{
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+	//mendapatkan jadwal kelas siswa
+	function get_jadwal_kelas_siswa($user)
+	{
+		$sql = "select A.Hari, A.Tanggal_Mulai from jadwal A, siswa B , user C where A.Kode_Kelas = B.Kode_Kelas and B.Id_User = C.Id and C.Username = '".$user."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	//mendapatkan jadwal absen siswa
+	function get_absen_siswa($name)
+	{
+		$sql = "select Staff_yang_mengabsen, Tanggal, Waktu from absensi_siswa where Nama_Siswa ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	//mendapatkan setiap tanggal dalam jadwal absen siswa
+	function get_absen_siswa_tanggal($name)
+	{
+		$sql = "select Tanggal from absensi_siswa where Nama_Siswa ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }
 ?>
