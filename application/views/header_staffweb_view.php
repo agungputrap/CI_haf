@@ -30,30 +30,41 @@
 				<div class="row top50">
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"beranda")== 0) {
-							echo "<a class='btn active' href='home'>Beranda</a>";
+							echo "<a class='btn active btn-success' href='home'>Beranda</a>";
 						} else {
-							echo "<a class='btn' href='home'>Beranda</a>";
+							echo "<a class='btn btn-success' href='home'>Beranda</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">
-						<?php if (strcmp($halaman,"pendaftaran")== 0) {
-							echo "<a class='btn active'href='pendaftaran'>Pendaftaran</a>";
-						} else {
-							echo "<a class='btn' href='pendaftaran'>Pendaftaran</a>";
-						} ?>
+						<div class="dropdown">
+  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuTransaksi" data-toggle="dropdown" aria-expanded="true">
+    						Transaksi
+    						<span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuTransaksi">
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="pendaftaran">Pendaftaran</a></li>
+    							<li role="presentation"><a role="menuitem" tabindex="-1" href="bayaran">Pembayaran</a></li>
+  							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-sm-2">
+						<div class="dropdown">
+  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuKesiswaan" data-toggle="dropdown" aria-expanded="true">
+    						Kesiswaan
+    						<span class="caret"></span>
+  							</button>
+  							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKesiswaan">
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="mengabsen_siswa">Mengabsen Siswa</a></li>
+    							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Pengaturan Siswa Baru</a></li>
+    							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Upload Hasil TO</a></li>
+  							</ul>
+						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"absensi")== 0) {
-							echo "<a class='btn active'href='absensi'>Absensi</a>";
+							echo "<a class='btn active btn-success' href='absensi'>Ringkasan Absen</a>";
 						} else {
-							echo "<a class='btn'href='absensi'>Absensi</a>";
-						} ?>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-						<?php if (strcmp($halaman,"mengabsen siswa")== 0) {
-							echo "<a class='btn active'href='mengabsen_siswa'>Mengabsen Siswa</a>";
-						} else {
-							echo "<a class='btn'href='mengabsen_siswa'>Mengabsen Siswa</a>";
+							echo "<a class='btn btn-success' href='absensi'>Ringkasan Absen</a>";
 						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">

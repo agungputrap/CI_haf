@@ -39,7 +39,7 @@
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <input class="form-control" id="txt_username" name="txt_username" placeholder="Username" type="text" value="<?php echo set_value('txt_username'); ?>" />
-	                    <h3>5 - 24 Karakter</h3>
+	                    Isi dengan 5 - 24 Karakter
 	                    <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
 	               </div>
 	               </div>
@@ -52,7 +52,7 @@
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <input class="form-control" id="txt_password" name="txt_password" placeholder="Password" type="password" value="<?php echo set_value('txt_password'); ?>" />
-	                    <h3>5 - 24 Karakter</h3>
+	                    Isi dengan 5 - 24 Karakter
 	                    <span class="text-danger"><?php echo form_error('txt_password'); ?></span>
 	               </div>
 	               </div>

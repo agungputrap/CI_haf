@@ -42,7 +42,6 @@
 
 		public function logout(){
 			$var_param['this_user'] = $this->session->userdata('username');
-			$this->login_model->set_login_invalid($var_param['this_user']);
 			$newdata = array('username'=>$var_param['this_user'], 'loginuser'=>FALSE);
 
 			//untuk menghancurkan session ketika logout

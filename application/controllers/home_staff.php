@@ -74,10 +74,24 @@
 			}
 			else
 			{
+				$temp_data_user = $this->staff_model->loadData($this->session->userdata('username'));
+				$temp_hari_mulai = $this->staff_model->get_jadwal_staff($this->session->userdata('username'));
+				$temp_absensi_staff = $this->staff_model->get_absen_staff($temp_data_user[0]['Nama']);
+				$arrTgl = array();
+
+				for ($i=0; $i < count($temp_absensi_staff) ; $i++) { 
+					foreach ($temp_absensi_staff[$i] as $key => $value) {
+						if ($key == 'Tanggal') {
+							$arrTgl[$i] = $value;
+						}
+					}
+				}
+
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi", "data" => $temp);
+					"halaman"=>"absensi", "data" => $temp_data_user, "jadwal" => $temp_hari_mulai, "absen" => $temp_absensi_staff,
+					"tanggal" => $arrTgl);
 				$this->load->view("header_staffweb_view",$var_param);
-				$this->load->view('welcome_message',$var_param);
+				$this->load->view('absensi_staff',$var_param);
 				$this->load->view("footer_view");	
 			}
 		}
@@ -178,8 +192,8 @@
 
 						$temp = $this->staff_model->loadData($this->session->userdata('username'));
 						$var_param= array("user"=>$this->session->userdata('username'),
-						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => $pembayaran[$index][$output], "tipe_akun" => $biaya,
-						"id_user" => @$id_siswa[0]['id'], "nama" => $nama, "staff" => $staff );
+						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => $pembayaran[$index][$output],
+						"id_user" => @$id_siswa[0]['id'], "nama" => $nama, "staff" => $staff, "type" => "Pendaftaran" );
 						$this->load->view("header_staffweb_view",$var_param);
 						$this->load->view('pendaftaran2_view',$var_param);
 					}
@@ -194,6 +208,7 @@
 						$id = $this->input->post("txt_id");
 						$nama = $this->input->post("txt_nama");
 						$staff = $this->input->post("txt_staff");
+						$type = $this->input->post("txt_type");
 						
 
 						$this->form_validation->set_rules("txt_paid","Pembayaran","trim|required");
@@ -211,7 +226,7 @@
 								$status = "Belum Lunas";
 							}
 
-							$this->staff_model->pembayaran("Pendaftaran",$nama,$staff,$paid);
+							$this->staff_model->pembayaran($type,$nama,$staff,$paid);
 							$this->staff_model->update_status($id,$status);
 							$this->staff_model->update_sisa($id,$left);
 
@@ -221,6 +236,39 @@
 						}
 					}
 		}
+
+		public function bayaran(){
+
+				$temp = $this->staff_model->loadData($this->session->userdata('username'));
+
+				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
+
+				//simpan disuatu array yang memiliki key -> value
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"bayaran", "data" => $temp);
+				
+				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
+				$this->load->view("header_staffweb_view",$var_param);
+
+				//jadikan parameter dari home_siswa untuk memberikan data tentang siswa tersebut
+				$this->load->view('pembayaran',$var_param);
+				$this->load->view("footer_view");
+
+				if($this->input->post('btn_proses')=="Proses"){
+					$nama = $this->input->post("txt_nama");
+
+					$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
+
+					if ($this->form_validation->run()==FALSE) {
+							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Form masih ada yang Salah!!!</div>');
+							redirect("home_staff/bayaran");
+					}
+					else{
+						$staff = $temp[0]['Nama'];
+					}
+
+				}
+		}
+
 
 		public function proc_mengabsen(){
 			date_default_timezone_set('Asia/Jakarta');

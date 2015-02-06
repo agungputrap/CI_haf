@@ -3,34 +3,18 @@
 		<div class="col-md-6 col-md-offset-1">
 			<div class='row'>;
 				<?php 
-	         	$attributes = array("class" => "form-horizontal", "id" => "daftarform3", "name" => "daftarform3");
-	         	echo form_open("home_staff/bayar", $attributes);?>
+	         	$attributes = array("class" => "form-horizontal", "id" => "daftarform2", "name" => "daftarform2");
+	         	echo form_open("home_staff/bayaran", $attributes);?>
 	         	<fieldset>
-	               <legend>Pembayaran</legend>
+	               <legend>Atas Nama</legend>
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">
-	                    <label for="txt_fee" class="control-label">Biaya yang harus dibayar</label>
+	                    <label for="txt_paid" class="control-label">Nama</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
-	                    <div id="namastaff"><?php echo ($biaya); ?></div>
-	                    <input type="hidden" name="txt_fee" value="<?php echo ($biaya); ?>">
-	                    <input type="hidden" name="txt_id" value="<?php echo ($id_user); ?>">
-	                    <input type="hidden" name="txt_nama" value="<?php echo ($nama); ?>">
-	                    <input type="hidden" name="txt_staff" value="<?php echo ($staff); ?>">
-	                    <input type="hidden" name="txt_type" value="<?php echo ($type); ?>">
-	               </div>
-	               </div>
-	               </div>
-
-	               <div class="form-group">
-	               <div class="row colbox">
-	               <div class="col-lg-4 col-sm-4">
-	                    <label for="txt_paid" class="control-label">Biaya yang dibayarkan</label>
-	               </div>
-	               <div class="col-lg-8 col-sm-8">
-	                    <input class="form-control" id="txt_paid" name="txt_paid" placeholder="" type="text" value="<?php echo set_value('txt_paid'); ?>" />
-	                    <span class="text-danger"><?php echo form_error('txt_paid'); ?></span>
+	                    <input class="form-control" id="txt_nama" name="txt_nama" placeholder="" type="text" value="<?php echo set_value('txt_nama'); ?>" />
+	                    <span class="text-danger"><?php echo form_error('txt_nama'); ?></span>
 	               </div>
 	               </div>
 	               </div>

@@ -12,6 +12,12 @@ class staff_model extends CI_Model{
 		return $query->num_rows();
 	}
 
+	function check_nama_siswa($nama){
+		$sql = "select * from siswa where nama LIKE ". "'%".$nama."'";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+
 	//check usernamenya ada atau tidak di tabel user
 	function ambil_nama($data){
 		$sql = "select nama from siswa where id_user = (select id from user where username = ". "'".$data."')";
@@ -110,6 +116,21 @@ class staff_model extends CI_Model{
 		$sql = "update siswa set sisa_pembayaran = " .'"'. $sisa .'"'. " where id_user = " .'"'. $id_user .'"'. "";
 		$query = $this->db->query($sql);
 
+	}
+
+	function get_jadwal_staff($user)
+	{
+		$sql = "select A.Hari, A.Tanggal_Mulai from tugas_staff A, staff B , user C where A.Kode_Staff = B.Id_Staff and B.Id_User = C.Id and C.Username = '".$user."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	//mendapatkan jadwal absen siswa
+	function get_absen_staff($name)
+	{
+		$sql = "select * from absensi_staff where username ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
 	}
 
 }
