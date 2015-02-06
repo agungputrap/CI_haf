@@ -133,5 +133,11 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	function ambil_pembayaran($name){
+		$sql = "select * from siswa where nama ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 }
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2015 at 01:54 PM
+-- Generation Time: Feb 06, 2015 at 11:20 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -193,12 +193,20 @@ INSERT INTO `kelas` (`Kode`, `Program`) VALUES
 CREATE TABLE IF NOT EXISTS `pembayaran` (
 `Kode_Pembayaran` int(8) NOT NULL,
   `Tipe_Transaksi` varchar(16) NOT NULL,
-  `Atas_Nama` int(8) NOT NULL,
-  `Staff_yang_menerima` int(8) NOT NULL,
+  `Atas_Nama` varchar(30) NOT NULL,
+  `Staff_yang_menerima` varchar(30) NOT NULL,
   `Nominal` int(8) NOT NULL,
   `Tanggal` date NOT NULL,
   `Waktu` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`Kode_Pembayaran`, `Tipe_Transaksi`, `Atas_Nama`, `Staff_yang_menerima`, `Nominal`, `Tanggal`, `Waktu`) VALUES
+(9, 'Pendaftaran', 'Rafif', 'Saeful Bahri', 7000000, '2015-02-06', '14:02:01'),
+(10, 'Pendaftaran', 'Rafif', 'Dadang Reza', 1000000, '2015-02-06', '17:14:55');
 
 -- --------------------------------------------------------
 
@@ -245,12 +253,12 @@ INSERT INTO `shift_ssc` (`Kode_Shift`, `Waktu_Mulai`, `Waktu_Berakhir`) VALUES
 
 CREATE TABLE IF NOT EXISTS `siswa` (
   `Id_User` int(8) DEFAULT NULL,
-  `No_SSC` int(10) NOT NULL,
+  `No_SSC` int(10) NOT NULL DEFAULT '0',
   `Nama` varchar(30) NOT NULL,
   `Jenis_Kelamin` varchar(12) NOT NULL,
   `Program` int(2) NOT NULL,
-  `Kode_Kelas` int(5) NOT NULL,
-  `Status_Pembayaran` varchar(16) NOT NULL DEFAULT 'Belum Lunas',
+  `Kode_Kelas` int(5) DEFAULT NULL,
+  `Status_Pembayaran` varchar(16) NOT NULL,
   `Sisa_Pembayaran` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -259,6 +267,7 @@ CREATE TABLE IF NOT EXISTS `siswa` (
 --
 
 INSERT INTO `siswa` (`Id_User`, `No_SSC`, `Nama`, `Jenis_Kelamin`, `Program`, `Kode_Kelas`, `Status_Pembayaran`, `Sisa_Pembayaran`) VALUES
+(28, 0, 'Rafif', 'Laki Laki', 1, 0, 'Lunas', 0),
 (2, 80000001, 'Waliyyin Razan Qanit', 'Laki - Laki', 1, 801, 'Lunas', 0),
 (3, 80000002, 'Budi Anduk', 'Laki - Laki', 1, 801, 'Lunas', 0),
 (4, 80000003, 'Vierra Citra', 'Perempuan', 2, 802, 'Lunas', 0),
@@ -297,17 +306,18 @@ CREATE TABLE IF NOT EXISTS `tugas_staff` (
 `Id_Tugas` int(2) NOT NULL,
   `Kode_Staff` int(8) NOT NULL,
   `Kode_Shift` char(4) NOT NULL,
-  `Hari` varchar(8) NOT NULL
+  `Hari` varchar(8) NOT NULL,
+  `Tanggal_Mulai` date NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tugas_staff`
 --
 
-INSERT INTO `tugas_staff` (`Id_Tugas`, `Kode_Staff`, `Kode_Shift`, `Hari`) VALUES
-(1, 11000001, 'S01', 'Monday'),
-(2, 11000001, 'S02', 'Monday'),
-(3, 11000002, 'S02', 'Saturday');
+INSERT INTO `tugas_staff` (`Id_Tugas`, `Kode_Staff`, `Kode_Shift`, `Hari`, `Tanggal_Mulai`) VALUES
+(1, 11000001, 'S01', 'Monday', '2015-01-05'),
+(2, 11000001, 'S02', 'Monday', '2015-01-05'),
+(3, 11000002, 'S02', 'Saturday', '2015-01-10');
 
 -- --------------------------------------------------------
 
@@ -323,23 +333,24 @@ CREATE TABLE IF NOT EXISTS `user` (
   `No_Telp` varchar(16) NOT NULL,
   `Role` varchar(8) NOT NULL DEFAULT 'Siswa',
   `Status_Akun` varchar(12) NOT NULL DEFAULT 'Aktif',
-  `Status_Login` varchar(8) NOT NULL DEFAULT 'Invalid'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `Durasi_Akun` varchar(16) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Id`, `Username`, `Password`, `Alamat`, `No_Telp`, `Role`, `Status_Akun`, `Status_Login`) VALUES
-(1, 'Admin', 'Admin', 'Depok', '087877319065', 'Admin', 'Aktif', 'Invalid'),
-(2, 'qanit03', 'waliyyin', 'JLn Babakan Selaawi, KAV GMI B 21', '02622247030', 'Siswa', 'Aktif', 'Invalid'),
-(3, 'Budi', 'budianduk', 'Perum Cimanganten', '089988776511', 'Siswa', 'Aktif', 'Invalid'),
-(4, 'Vierra', 'vierra', 'Perum Pertamina, Jalan Terusan Pembangunan', '0262223765', 'Siswa', 'Aktif', 'Invalid'),
-(5, 'Dinda', 'Dinda', 'Sukaregan, Garut', '02622245678', 'Siswa', 'Aktif', 'Invalid'),
-(6, 'Epung', 'epung', 'Jalan leuwidaun, tarogong kidul', '0262233386', 'Staff', 'Aktif', 'Invalid'),
-(7, 'Dadang', 'dadang', 'Sukaregang, Garut', '0262231311', 'Staff', 'Aktif', 'Invalid'),
-(8, 'Dudung', 'dudung', 'Jalan Gordah, Perum Gordah', '081311878424', 'Guru', 'Aktif', 'Invalid'),
-(9, 'Asep', 'asep', 'Jalan Babakan Selaawi, Perum GMI KAV B 21', '02622247030', 'Guru', 'Aktif', 'Invalid');
+INSERT INTO `user` (`Id`, `Username`, `Password`, `Alamat`, `No_Telp`, `Role`, `Status_Akun`, `Durasi_Akun`) VALUES
+(1, 'Admin', 'Admin', 'Depok', '087877319065', 'Admin', 'Aktif', '1 Tahun'),
+(2, 'qanit03', 'waliyyin', 'JLn Babakan Selaawi, KAV GMI B 21', '02622247030', 'Siswa', 'Aktif', '1 Tahun'),
+(3, 'Budi', 'budianduk', 'Perum Cimanganten', '089988776511', 'Siswa', 'Aktif', '1 Tahun'),
+(4, 'Vierra', 'vierra', 'Perum Pertamina, Jalan Terusan Pembangunan', '0262223765', 'Siswa', 'Aktif', '1 Tahun'),
+(5, 'Dinda', 'Dinda', 'Sukaregan, Garut', '02622245678', 'Siswa', 'Aktif', '1 Tahun'),
+(6, 'Epung', 'epung', 'Jalan leuwidaun, tarogong kidul', '0262233386', 'Staff', 'Aktif', '1 Tahun'),
+(7, 'Dadang', 'dadang', 'Sukaregang, Garut', '0262231311', 'Staff', 'Aktif', '1 Tahun'),
+(8, 'Dudung', 'dudung', 'Jalan Gordah, Perum Gordah', '081311878424', 'Guru', 'Aktif', '1 Tahun'),
+(9, 'Asep', 'asep', 'Jalan Babakan Selaawi, Perum GMI KAV B 21', '02622247030', 'Guru', 'Aktif', '1 Tahun'),
+(28, 'rafif', 'rafif', '02622247030', 'garut', 'Siswa', 'Aktif', '1 Tahun');
 
 --
 -- Indexes for dumped tables
@@ -473,7 +484,7 @@ MODIFY `Id_Kas` int(10) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-MODIFY `Kode_Pembayaran` int(8) NOT NULL AUTO_INCREMENT;
+MODIFY `Kode_Pembayaran` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `pinjaman`
 --
@@ -488,7 +499,7 @@ MODIFY `Id_Tugas` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `Id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `Id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

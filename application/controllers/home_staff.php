@@ -230,8 +230,15 @@
 							$this->staff_model->update_status($id,$status);
 							$this->staff_model->update_sisa($id,$left);
 
-							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Berhasil Mendaftar </div>');
-							redirect("home_staff/pendaftaran");
+							if ($type = "Pendaftaran") {
+								$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Berhasil Mendaftar </div>');
+								redirect("home_staff/pendaftaran");
+							} else {
+								$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Berhasil Membayar </div>');
+								redirect("home_staff/pembayaran");
+							}
+							
+							
 							
 						}
 					}
@@ -253,7 +260,11 @@
 				$this->load->view('pembayaran',$var_param);
 				$this->load->view("footer_view");
 
-				if($this->input->post('btn_proses')=="Proses"){
+		}
+
+		public function proc_bayaran(){
+			$temp = $this->staff_model->loadData($this->session->userdata('username'));
+			if($this->input->post('btn_proses')=="Proses"){
 					$nama = $this->input->post("txt_nama");
 
 					$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
@@ -264,6 +275,13 @@
 					}
 					else{
 						$staff = $temp[0]['Nama'];
+						$biaya = $this->staff_model->ambil_pembayaran($nama);
+
+						$var_param= array("user"=>$this->session->userdata('username'),
+						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => @$biaya[0]['Sisa_Pembayaran'],
+						"id_user" => @$biaya[0]['Id_User'], "nama" => $nama, "staff" => $staff, "type" => "Pembayaran" );
+						$this->load->view("header_staffweb_view",$var_param);
+						$this->load->view('pendaftaran2_view',$var_param);
 					}
 
 				}

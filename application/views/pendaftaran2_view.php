@@ -29,8 +29,8 @@
 	                    <label for="txt_paid" class="control-label">Biaya yang dibayarkan</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
-	                    <input class="form-control" id="txt_paid" name="txt_paid" placeholder="" type="text" value="<?php echo set_value('txt_paid'); ?>" />
-	                    <span class="text-danger"><?php echo form_error('txt_paid'); ?></span>
+	                 <input class="form-control" id="txt_paid" name="txt_paid" placeholder="" type="text" value="<?php echo set_value('txt_paid'); ?>" />
+	                    <span class="text-danger"><?php echo form_error('txt_paid'); ?></span>   
 	               </div>
 	               </div>
 	               </div>

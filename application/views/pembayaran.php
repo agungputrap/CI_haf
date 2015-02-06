@@ -4,7 +4,7 @@
 			<div class='row'>;
 				<?php 
 	         	$attributes = array("class" => "form-horizontal", "id" => "daftarform2", "name" => "daftarform2");
-	         	echo form_open("home_staff/bayaran", $attributes);?>
+	         	echo form_open("home_staff/proc_bayaran", $attributes);?>
 	         	<fieldset>
 	               <legend>Atas Nama</legend>
 	               <div class="form-group">
