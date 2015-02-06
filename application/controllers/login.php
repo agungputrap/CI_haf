@@ -65,8 +65,10 @@ class login extends CI_Controller
 							elseif ($role == "Staff") {
 								redirect("home_staff/home");
 							}
-							elseif ($role == "Guru") {
+							elseif ($role == "Guru") {								
+
 								redirect("home_guru/home");
+
 							}
 							elseif ($role == "Manajer") {
 								redirect("home_manajer/home");

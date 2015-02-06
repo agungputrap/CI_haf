@@ -8,6 +8,8 @@
 			$this->load->library('session');
 			$this->load->helper('url');
 			$this->load->helper('html');
+			$this->load->helper('form');
+			$this->load->library('form_validation');
 			$this->load->database();
 			$this->load->model('login_model');
 			$this->load->model('home_model');
@@ -105,6 +107,70 @@
 				$this->load->view("footer_view");	
 			}
 		}
-	}
 
+		public function rubah_profil()
+		{
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
+				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"rubah_profil","data" =>$temp_data_user);
+
+				$this->load->view("header_inweb_view",$var_param);
+				$this->load->view('rubah_profil_siswa',$var_param);
+				$this->load->view("footer_view");
+			}
+		}
+
+		public function proc_rubah_profil()
+		{
+			$password = $this->input->post("txt_password");
+			$alamat = $this->input->post("txt_alamat");
+			$telp = $this->input->post("txt_telp");
+
+			//form validation
+			$this->form_validation->set_rules("txt_password","Password","trim|required");
+			$this->form_validation->set_rules("txt_alamat","Address","trim|required");
+			$this->form_validation->set_rules("txt_telp","Telephone","trim|required");
+
+			//config untuk upload gambar
+			 $config =  array(
+                  'upload_path'     => "./assets/images/",
+                  'allowed_types'   => "gif|jpg|png|jpeg|pdf",
+                  'overwrite'       => TRUE,
+                  'file_name'       => $this->session->userdata('username'),
+                  'max_size'        => "2048000",  // Can be set to particular file size
+                  'max_height'      => "1600",
+                  'max_width'       => "1024"  
+                );    
+			if ($this->form_validation->run()==FALSE)
+			{
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
+					redirect("home_siswa/rubah_profil");
+			}
+			else
+			{
+				//data buat page
+				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"rubah_profil","data" =>$temp_data_user);
+
+				//upload gambar
+				$this->load->library('upload', $config);
+				
+				if($this->upload->do_upload())
+				{
+					$this->upload->data();
+					$this->siswa_model->update_profil_siswa($this->session->userdata('username'),$password,$alamat,$telp);
+					$this->load->view("header_inweb_view",$var_param);
+					$this->load->view('rubah_profil_siswa_berhasil');
+					$this->load->view("footer_view");
+				}
+			}
+		}
+	}
 ?>

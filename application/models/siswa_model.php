@@ -84,5 +84,11 @@ class siswa_model extends CI_Model{
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+	//update alamat, password, dan no telp siswa
+	function update_profil_siswa($username, $pass,$alamat, $telp){
+		$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
+		$query = $this->db->query($sql);
+	}
 }
 ?>
