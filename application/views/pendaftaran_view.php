@@ -21,10 +21,25 @@
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">
+	                    <label for="txt_sex" class="control-label">Jenis Kelamin</label>
+	               </div>
+	               <div class="col-lg-8 col-sm-8">
+	                    <select name='sex' form ='daftarform' id='sex'>
+	                    	<option value='Laki Laki'>Laki - Laki</option>
+	                    	<option value='Perempuan'>Perempuan</option>
+	                    </select>
+	               </div>
+	               </div>
+	               </div>
+
+	               <div class="form-group">
+	               <div class="row colbox">
+	               <div class="col-lg-4 col-sm-4">
 	                    <label for="txt_username" class="control-label">Username</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <input class="form-control" id="txt_username" name="txt_username" placeholder="Username" type="text" value="<?php echo set_value('txt_username'); ?>" />
+	                    <h3>5 - 24 Karakter</h3>
 	                    <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
 	               </div>
 	               </div>
@@ -37,6 +52,7 @@
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <input class="form-control" id="txt_password" name="txt_password" placeholder="Password" type="password" value="<?php echo set_value('txt_password'); ?>" />
+	                    <h3>5 - 24 Karakter</h3>
 	                    <span class="text-danger"><?php echo form_error('txt_password'); ?></span>
 	               </div>
 	               </div>
@@ -49,6 +65,18 @@
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <textarea name="txt_alamat" form ="daftarform" rows="4" cols="50"></textarea>
+	               </div>
+	               </div>
+	               </div>
+
+	               <div class="form-group">
+	               <div class="row colbox">
+	               <div class="col-lg-4 col-sm-4">
+	                    <label for="txt_telp" class="control-label">No Telepon</label>
+	               </div>
+	               <div class="col-lg-8 col-sm-8">
+	                    <input class="form-control" id="txt_telp" name="txt_telp" placeholder="Telephone" type="text" value="<?php echo set_value('txt_telp'); ?>" />
+	                    <span class="text-danger"><?php echo form_error('txt_telp'); ?></span>
 	               </div>
 	               </div>
 	               </div>
@@ -72,7 +100,7 @@
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 	                    <?php
-	                    echo "<select form ='daftarform' id='program'>";
+	                    echo "<select name='program' form ='daftarform' id='program'>";
 	                    	echo "<option value='NULL'>--Pilih Program--</option>";
 	                    	for ($i=0; $i < count($program) ; $i++) { 
 	                    		$opt = "<option value='".$program[$i]."'>".$program[$i]."</option>";
@@ -88,44 +116,18 @@
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">
-	               <label for="txt_staff" class="control-label"></label>
+	               <label for="biaya" class="control-label"></label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
 						<?php
-	                    if ($show) {
-	                    	echo "<input type='radio' name='biaya' value='semester'>1 Semester";
-							echo "<br>";
-							echo "<input type='radio' name='biaya' value='tahun'>1 Tahun";
-							echo "<br>";
-	                    } else {
-	                    	# code...
-	                    }
+	                  
+	                    echo "<input type='radio' name='biaya' value='semester'>1 Semester";
+						echo "<br>";
+						echo "<input type='radio' name='biaya' value='tahun'>1 Tahun";
+						echo "<br>";
 	                    
 	                    ?>
 
-	               </div>
-	               </div>
-	               </div>
-
-	               <div class="form-group">
-	               <div class="row colbox">
-	               <div class="col-lg-4 col-sm-4">
-	               <label for="bayar" class="control-label">Biaya</label>
-	               </div>
-	               <div class="col-lg-8 col-sm-8">
-	               		<p>Biaya secara otomatis tampil disini</p>
-	               </div>
-	               </div>
-	               </div>
-
-	               <div class="form-group">
-	               <div class="row colbox">
-	               <div class="col-lg-4 col-sm-4">
-	                    <label for="txt_membayar" class="control-label">Biaya yang dibayarkan</label>
-	               </div>
-	               <div class="col-lg-8 col-sm-8">
-	                    <input class="form-control" id="txt_membayar" name="txt_membayar" placeholder="Yang di bayarkan" type="text" value="<?php echo set_value('txt_membayar'); ?>" />
-	                    <span class="text-danger"><?php echo form_error('txt_username'); ?></span>
 	               </div>
 	               </div>
 	               </div>

@@ -19,7 +19,7 @@ class login_model extends CI_Model
 	//check apakah ada user lain yang berusaha masuk ke suatu username, sedangkan user yang pertama sedang login
 	function check_login_twice($usr, $pwd)
 	{
-		$sql = "select * from user where username = " .'"'. $usr .'"'. " and password = " .'"'. $pwd .'"'. " and status_akun = 'aktif' and status_login ='Invalid'";
+		$sql = "select * from user where username = " .'"'. $usr .'"'. " and password = " .'"'. $pwd .'"'. " and status_akun = 'aktif'";
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 	}

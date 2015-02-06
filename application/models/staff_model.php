@@ -33,14 +33,6 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
-	//ambil kode tugas dari staff berdasarkan username, sekarang hari apa, dan shift apa yang sedang berlangsung
-	function pembayaran($user,$day,$shift){
-		$sql = "insert into absensi_siswa(kode_ssc,kode_jadwal,staff_yang_mengabsen, tanggal, waktu) values (". "'".$kodejadwal."',"."'".$kodessc."'".","."'".$staff."'".",current_date,current_time)";
-		$query = $this->db->query($sql);
-		return $query->result_array();
-		//return "Berhasil";
-	}
-
 	//ambil semua shift dari seorang staff
 	function ringkasan_absen(){
 		$sql = "select tanggal, waktu, status from absensi_staff where username = ". "'".$user."' ";
@@ -80,5 +72,45 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 		//return "Berhasil";
 	}
+
+	function daftarkan_user($username,$password,$alamat,$telp,$dur){
+		$sql = "insert into user(username,password,alamat,no_telp,role,status_akun,durasi_akun) values ("."'".$username."'".",". "'".$password."',"."'".$alamat."'".","."'".$telp."'".",'Siswa','Aktif',"."'".$dur."'".")";
+		$query = $this->db->query($sql);
+	}
+
+	function daftarkan_siswa($username,$nama,$sex,$id_biaya,$status,$left){
+		$sql2 = "insert into siswa(id_user,no_ssc,nama,jenis_kelamin,program,kode_kelas,status_pembayaran,sisa_pembayaran) 
+		values 
+		("."'".$username."'".",'0',". "'".$nama."',"."'".$sex."'".","."'".$id_biaya."'".",'NULL',"."'".$status."'".",". "'".$left."')";
+		
+		$query = $this->db->query($sql2);
+	}
+
+	function pembayaran($type,$nama,$staff,$paid){
+		$sql = "insert into pembayaran(tipe_transaksi,atas_nama,staff_yang_menerima,nominal,tanggal,waktu) 
+		values 
+		("."'".$type."'".",". "'".$nama."',"."'".$staff."'".","."'".$paid."'".",current_date,current_time)";
+
+		$query = $this->db->query($sql);
+	}
+
+	function ambil_id_siswa($username){
+		$sql = "select id from user where username = ". "'".$username."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function update_status($id_user,$status){
+		$sql = "update siswa set status_pembayaran = " .'"'. $status .'"'. " where id_user = " .'"'. $id_user .'"'. "";
+		$query = $this->db->query($sql);
+
+	}
+
+	function update_sisa($id_user,$sisa){
+		$sql = "update siswa set sisa_pembayaran = " .'"'. $sisa .'"'. " where id_user = " .'"'. $id_user .'"'. "";
+		$query = $this->db->query($sql);
+
+	}
+
 }
 ?>

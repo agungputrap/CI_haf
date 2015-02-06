@@ -9,6 +9,7 @@
 			$this->load->helper('url');
 			$this->load->helper('html');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 			$this->load->database();
 			$this->load->model('login_model');
 			$this->load->model('home_model');
@@ -76,10 +77,11 @@
 				$var_param= array("user"=>$this->session->userdata('username'),
 					"halaman"=>"absensi", "data" => $temp);
 				$this->load->view("header_staffweb_view",$var_param);
-				$this->load->view('absensi_siswa_view',$var_param);
+				$this->load->view('welcome_message',$var_param);
 				$this->load->view("footer_view");	
 			}
 		}
+
 		public function pendaftaran(){
 			if ($this->session->userdata('username') == NULL) 
 			{
@@ -118,7 +120,106 @@
 				$username = $this->input->post("txt_username");
 				$password = $this->input->post("txt_password");
 				$nama = $this->input->post("txt_nama");
+				$sex = $this->input->post("sex");
 				$alamat = $this->input->post("txt_alamat");
+				$telp = $this->input->post("txt_telp");
+				$staff = $this->input->post("txt_staff");
+				$program = $this->input->post("program");
+				$biaya = $this->input->post("biaya");
+
+				
+				$this->form_validation->set_rules("txt_username","Username","trim|required|min_length[5]|max_length[24]");
+				$this->form_validation->set_rules("txt_password","Password","trim|required|min_length[5]|max_length[24]");
+				$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
+				$this->form_validation->set_rules("txt_alamat","Address","trim|required");
+				$this->form_validation->set_rules("txt_telp","Telephone","trim|required");
+				
+				if ($this->form_validation->run()==FALSE | empty($program) | empty($biaya)) {
+					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
+					redirect("home_staff/pendaftaran");
+				} else {
+
+					$index = 0;
+					$output = "";
+					$pembayaran = $this->staff_model->ambil_biaya();
+					for ($i=0; $i < count($pembayaran); $i++) { 
+						foreach ($pembayaran[$i] as $key => $value) {
+							if ($key == "Nama_Program") {
+								if ($value == $program) {
+									$index = $i;
+								}
+							} 	
+						}
+					}
+
+					$dur = "";
+
+					if ($biaya == "semester") {
+						$output = "Biaya_per_Semester";
+						$dur = "1 Semester";
+					}
+					else{
+						$output = "Biaya_per_Tahun";
+						$dur = "1 Tahun";
+					}
+
+
+					$id_biaya = $pembayaran[$index]['Id_Biaya'];
+
+					$usercheck = $this->staff_model->check_username($username);
+
+					if ($usercheck > 0) {
+						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Username sudah ada!!!</div>');
+						redirect("home_staff/pendaftaran");
+					} else {
+						$this->staff_model->daftarkan_user($username,$password,$telp,$alamat,$dur);
+						$id_siswa = $this->staff_model->ambil_id_siswa($username);
+						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,"Lunas",'0');
+
+						$temp = $this->staff_model->loadData($this->session->userdata('username'));
+						$var_param= array("user"=>$this->session->userdata('username'),
+						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => $pembayaran[$index][$output], "tipe_akun" => $biaya,
+						"id_user" => @$id_siswa[0]['id'], "nama" => $nama, "staff" => $staff );
+						$this->load->view("header_staffweb_view",$var_param);
+						$this->load->view('pendaftaran2_view',$var_param);
+					}
+				}
+		}
+
+		public function bayar(){
+					if($this->input->post('btn_proses')=="Proses"){
+
+						$fee = (int)$this->input->post("txt_fee");
+						$paid = (int)$this->input->post("txt_paid");
+						$id = $this->input->post("txt_id");
+						$nama = $this->input->post("txt_nama");
+						$staff = $this->input->post("txt_staff");
+						
+
+						$this->form_validation->set_rules("txt_paid","Pembayaran","trim|required");
+						if ($this->form_validation->run()==FALSE) {
+							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Form masih ada yang kosong!!!</div>');
+							redirect("home_staff/pendaftaran");
+						}
+						else{
+							$status = "Lunas";
+							$left = 0;
+
+							$eq = $fee - $paid;
+							$left = $eq;
+							if ($eq != 0) {
+								$status = "Belum Lunas";
+							}
+
+							$this->staff_model->pembayaran("Pendaftaran",$nama,$staff,$paid);
+							$this->staff_model->update_status($id,$status);
+							$this->staff_model->update_sisa($id,$left);
+
+							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Berhasil Mendaftar </div>');
+							redirect("home_staff/pendaftaran");
+							
+						}
+					}
 		}
 
 		public function proc_mengabsen(){
