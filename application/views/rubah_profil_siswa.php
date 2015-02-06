@@ -52,7 +52,7 @@
 	            	<div class="form-group">
 		                <div class="col-lg-12 col-sm-12 text-center">
 			                <input id="btn_rubah" name="btn_rubah" type="submit" class="btn btn-default" value="Rubah" />
-			                <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
+			                <input id="btn_cancel" name="btn_cancel" type="submit" class="btn btn-default" value="Cancel" />
 		                </div>
 	                </div>
 

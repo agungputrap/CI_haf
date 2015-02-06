@@ -23,12 +23,12 @@
 					echo "<div class='col-md-6'>";
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
-						echo "<td>Kode Pembayaran</td>";
-						echo "<td>Atas Nama</td>";
-						echo "<td>Nama</td>";
-						echo "<td>Staff Yang Menerima</td>";
-						echo "<td>Nama Staff</td>";
-						echo "<td>Tanggal Pembayaran</td>";
+						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Atas Nama</strong></td>";
+						echo "<td><strong>Nama</strong></td>";
+						echo "<td><strong>Staff Yang Menerima</strong></td>";
+						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Tanggal Pembayaran</strong></td>";
 					echo "</tr>";
 					foreach ($data_pembayaran as $list) {
 						echo "<tr class='warning'>";
@@ -50,17 +50,17 @@
 					echo "<div class='col-md-6 col-md-offset-1'>";
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
-						echo "<td>Kode Pembayaran</td>";
-						echo "<td>Atas Nama</td>";
-						echo "<td>Nama</td>";
-						echo "<td>Staff Yang Menerima</td>";
-						echo "<td>Nama Staff</td>";
-						echo "<td>Tanggal Pembayaran</td>";
+						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Atas Nama</strong></td>";
+						echo "<td><strong>Nama</strong></td>";
+						echo "<td><strong>Staff Yang Menerima</strong></td>";
+						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Tanggal Pembayaran</strong></td>";
 					echo "</tr>";
 					foreach ($data_pembayaran as $list) {
 						echo "<tr class='info'>";
 						foreach ($list as $value_tabel) {
-							echo "<td>".$value_tabel."</td>";
+							echo "<td align='center'>".$value_tabel."</td>";
 						}
 						echo "</tr>";
 					}			
@@ -76,15 +76,15 @@
 					echo "<div class='col-md-6 col-md-offset-1'>";
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
-						echo "<td>Kode Pembayaran</td>";
-						echo "<td>Atas Nama</td>";
-						echo "<td>Nama</td>";
-						echo "<td>Staff Yang Menerima</td>";
-						echo "<td>Nama Staff</td>";
-						echo "<td>Tanggal Pembayaran</td>";
+						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Atas Nama</strong></td>";
+						echo "<td><strong>Nama</strong></td>";
+						echo "<td><strong>Staff Yang Menerima</strong></td>";
+						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Tanggal Pembayaran</strong></td>";
 					echo "</tr>";
 					for ($i=0; $i < 6; $i++) { 
-						echo "<td> - </td>";
+						echo "<td align='center'> - </td>";
 					}
 					echo "</tr>";
 					echo "</table>";

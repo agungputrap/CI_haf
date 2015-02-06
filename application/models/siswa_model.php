@@ -73,18 +73,10 @@ class siswa_model extends CI_Model{
 	//mendapatkan jadwal absen siswa
 	function get_absen_siswa($name)
 	{
-		$sql = "select Staff_yang_mengabsen, Tanggal, Waktu from absensi_siswa where Nama_Siswa ='".$name."'";
+		$sql = "select * from absensi_siswa where Nama_Siswa ='".$name."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
-	//mendapatkan setiap tanggal dalam jadwal absen siswa
-	function get_absen_siswa_tanggal($name)
-	{
-		$sql = "select Tanggal from absensi_siswa where Nama_Siswa ='".$name."'";
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}
-
 	//update alamat, password, dan no telp siswa
 	function update_profil_siswa($username, $pass,$alamat, $telp){
 		$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";

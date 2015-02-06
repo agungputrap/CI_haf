@@ -16,11 +16,12 @@
 		echo "<div class='col-md-12'>";
 		echo "<table class='table table-striped'>";
 		echo "<tr>";
-		echo "<td>No.</td>";
-		echo "<td>tanggal</td>";
-		echo "<td>Hari</td>";
-		echo "<td>status masuk</td>";
-		echo "<td>Staff Bertugas</td>";
+		echo "<td><strong>No.</strong></td>";
+		echo "<td><strong>tanggal</strong></td>";
+		echo "<td><strong>Hari</strong></td>";
+		echo "<td><strong>Kode Jadwal</strong></td>";
+		echo "<td><strong>status masuk</strong></td>";
+		echo "<td><strong>Staff Bertugas</strong></td>";
 		echo "</tr>";
 		$no_tabel_row=1;
 		$array_tidak_hadir = array();
@@ -60,7 +61,7 @@
  			{
  				$hari_indo="Sabtu";
  			}
- 			
+
 			//looping untuk setiap jadwal kelas yang bisa aja berbeda
 			for ($day=0; $day < count($data_hari_mulai); $day++) { 
 				if ($temp_hari_apa == $data_hari_mulai[$day]['Hari'])
@@ -68,11 +69,12 @@
 					for ($i=0; $i < count($data_absensi_siswa) ; $i++) { 
 						if ($date == $data_absensi_siswa[$i]['Tanggal']){
 							echo "<tr class='success'>";
-							echo "<td>".$no_tabel_row."</td>";
-							echo "<td>".$date."</td>";
-							echo "<td>".$hari_indo."</td>";
-							echo "<td>Hadir</td>";
-							echo "<td>".$data_absensi_siswa[$i]['Staff_yang_mengabsen']."</td>";
+							echo "<td align='center'>".$no_tabel_row."</td>";
+							echo "<td align='center'>".$date."</td>";
+							echo "<td align='center'>".$hari_indo."</td>";
+							echo "<td align='center'>".$data_absensi_siswa[$i]['Kode_Jadwal']."</td>";
+							echo "<td align='center'>Hadir</td>";
+							echo "<td align='center'>".$data_absensi_siswa[$i]['Staff_yang_mengabsen']."</td>";
 							echo "</tr>";
 							++$no_tabel_row;
 						}
@@ -83,11 +85,12 @@
 							{
 								array_push($array_tidak_hadir, $date);
 								echo "<tr class='warning'>";
-								echo "<td>".$no_tabel_row."</td>";
-								echo "<td>".$date."</td>";
-								echo "<td>".$hari_indo."</td>";
-								echo "<td>Tidak Hadir</td>";
-								echo "<td>-</td>";
+								echo "<td align='center'>".$no_tabel_row."</td>";
+								echo "<td align='center'>".$date."</td>";
+								echo "<td align='center'>".$hari_indo."</td>";
+								echo "<td align='center'>-</td>";
+								echo "<td align='center'>Tidak Hadir</td>";
+								echo "<td align='center'>-</td>";
 								echo "</tr>";
 								++$no_tabel_row;
 							}
@@ -105,11 +108,12 @@
 								{
 									array_push($array_tidak_hadir, $date);
 									echo "<tr class='warning'>";
-									echo "<td>".$no_tabel_row."</td>";
-									echo "<td>".$date."</td>";
-									echo "<td>".$hari_indo."</td>";
-									echo "<td>Tidak Hadir</td>";
-									echo "<td>-</td>";
+									echo "<td align='center'>".$no_tabel_row."</td>";
+									echo "<td align='center'>".$date."</td>";
+									echo "<td align='center'>".$hari_indo."</td>";
+									echo "<td align='center'>-</td>";
+									echo "<td align='center'>Tidak Hadir</td>";
+									echo "<td align='center'>-</td>";
 									echo "</tr>";
 									++$no_tabel_row;
 								}
