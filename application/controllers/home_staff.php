@@ -51,7 +51,7 @@
 	   		redirect('login');
 		}
 
-		public function mengabsen_siswa(){
+		public function mengabsen(){
 			if ($this->session->userdata('username') == NULL) 
 			{
 				redirect('login/index');
@@ -60,9 +60,25 @@
 			{
 				$temp = $this->staff_model->loadData($this->session->userdata('username'));
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"mengabsen siswa", "data" => $temp);
+					"halaman"=>"mengabsen", "data" => $temp);
 				$this->load->view("header_staffweb_view",$var_param);
-				$this->load->view('mengabsen_siswa',$var_param);
+				$this->load->view('mengabsen',$var_param);
+				$this->load->view("footer_view");	
+			}
+		}
+
+		public function cari_nama(){
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
+				$temp = $this->staff_model->loadData($this->session->userdata('username'));
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"cari_nama", "data" => $temp);
+				$this->load->view("header_staffweb_view",$var_param);
+				$this->load->view('cari_nama',$var_param);
 				$this->load->view("footer_view");	
 			}
 		}
@@ -245,7 +261,12 @@
 		}
 
 		public function bayaran(){
-
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
 				$temp = $this->staff_model->loadData($this->session->userdata('username'));
 
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
@@ -254,11 +275,35 @@
 				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"bayaran", "data" => $temp);
 				
 				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
+				$var_param= array("user"=>$this->session->userdata('username'),
+						"halaman"=>"pembayaran", "data" => $temp);
 				$this->load->view("header_staffweb_view",$var_param);
-
-				//jadikan parameter dari home_siswa untuk memberikan data tentang siswa tersebut
 				$this->load->view('pembayaran',$var_param);
-				$this->load->view("footer_view");
+			}
+
+		}
+
+		public function proc_cari(){
+
+				$nama = $this->input->post("txt_nama");
+
+				$realnama = $this->staff_model->cari_nama($nama);
+				if (count($realnama) == 0) {
+					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Tidak ada nama tersebut</div>');
+					redirect("home_staff/cari_nama");
+				} else {
+					$temp = $this->staff_model->loadData($this->session->userdata('username'));
+
+					//gunakan tanda @ supaya tidak ada warning tentang undefined offset
+
+					//simpan disuatu array yang memiliki key -> value
+					$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"hasil_cari", "data" => $temp, "real" => $realnama);
+				
+					//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
+					$this->load->view("header_staffweb_view",$var_param);
+					$this->load->view('hasil_cari',$var_param);
+				}
+				
 
 		}
 
@@ -276,12 +321,16 @@
 					else{
 						$staff = $temp[0]['Nama'];
 						$biaya = $this->staff_model->ambil_pembayaran($nama);
-
-						$var_param= array("user"=>$this->session->userdata('username'),
-						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => @$biaya[0]['Sisa_Pembayaran'],
-						"id_user" => @$biaya[0]['Id_User'], "nama" => $nama, "staff" => $staff, "type" => "Pembayaran" );
-						$this->load->view("header_staffweb_view",$var_param);
-						$this->load->view('pendaftaran2_view',$var_param);
+						if (count($biaya) == 0) {
+							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Tuliskan Nama Lengkap</div>');
+							redirect("home_staff/bayaran");
+						} else {
+							$var_param= array("user"=>$this->session->userdata('username'),
+							"halaman"=>"pendaftaran", "data" => $temp, "biaya" => @$biaya[0]['Sisa_Pembayaran'],
+							"id_user" => @$biaya[0]['Id_User'], "nama" => $nama, "staff" => $staff, "type" => "Pembayaran" );
+							$this->load->view("header_staffweb_view",$var_param);
+							$this->load->view('pendaftaran2_view',$var_param);
+						}
 					}
 
 				}
@@ -314,9 +363,17 @@
 				{
 					//pastikan usernya ada dan kalo ada namanya langsung diambil simpan di variabel nama
 					$usr_result = $this->staff_model->check_username($username);
-					$usr_name = $this->staff_model->ambil_nama($username);
+					
 					$temp = $usr_name[0];
 					$nama = $temp['nama'];
+					$type = $this->input->post("type");
+
+					if ($type == "siswa") {
+						$usr_name = $this->staff_model->ambil_nama_siswa($username);
+					} else {
+						$usr_name = $this->staff_model->ambil_nama_guru($username);
+					}
+					
 
 					//Untuk menentukan shift pada waktu si user mengabsen
 					$index = 0;
@@ -337,7 +394,7 @@
 						$dec_outtime = array();
 
 						//ambil semua shift dari staff untuk menentukan shift manakah yang sedah berlangsung pada waktu staff mengabsen
-						$query_waktu = $this->staff_model->ambil_shift_siswa();
+						$query_waktu = $this->staff_model->ambil_shift();
 
 						//simpan data sesuai array yang telah ditentukan sebelumnya
 						for ($i=0; $i < count($query_waktu); $i++) { 
@@ -369,12 +426,19 @@
 						}
 
 						//ambil data id tugas dari suatu staff dengan kdoe shift dan hari yang bersesuaian
-						$query_tugas = $this->staff_model->ambil_jadwal($nama,$day,$dec_shift[$index]);
+						$query_tugas = array();
+
+						if ($type = "siswa") {
+							$query_tugas = $this->staff_model->ambil_jadwal_siswa($nama,$day,$dec_shift[$index]);
+						} else {
+							$query_tugas = $this->staff_model->ambil_jadwal_guru($nama,$day,$dec_shift[$index]);
+						}
+						
 
 						//Jika staff tidak mempunyai tugas di hari dan/atau waktu pada ia mengabsen, maka ada error message
 						if (count($query_tugas) == 0) {
 							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan shiftnya pak!!!</div>');
-							redirect('home_staff/mengabsen_siswa');
+							redirect('home_staff/mengabsen');
 						} else {
 								
 								//simpan row dari query_tugas dalam suatu variabel temp					
@@ -382,25 +446,35 @@
 								$id_tugas = $temp2['id_jadwal'];
 								
 								//check apakah staff sudah absen untuk suatu shift
-								$check_duplikat = $this->staff_model->duplikat($nama,$id_tugas);
+								if ($type = "siswa") {
+									$duplikat =  $this->staff_model->duplikat_siswa($nama,$id_tugas);
+								} else {
+									$duplikat = $this->staff_model->duplikat_guru($id_tugas);
+								}
+								
 
 								//Kalau staff ngabsen tapi belum pada jadwalnya, maka ada error message
 								if ($index > 1) {
 									if ($dec_outtime[$index - 1] >= $hoursnow) {
 										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan jadwalnya ngabsen pak!!!</div>');
-										redirect('home_staff/mengabsen_siswa');
+										redirect('home_staff/mengabsen');
 									}
 								}
 								else{
 									//Kalau staff ngabsen tapi sebelumnya udah absen, maka ada error message
 									if ($check_duplikat > 0) {
 										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Udah ngabsen kan tadi pak!!!</div>');
-										redirect('home_staff/mengabsen_siswa');
+										redirect('home_staff/mengabsen');
 									} else {
-										echo $this->staff_model->isi_absen_siswa($id_tugas,$nama,$staff);
-										var_dump($id_tugas);
+										if ($type = "siswa") {
+											$this->staff_model->isi_absen_siswa($id_tugas,$nama,$staff);
+										}
+										else{
+											$this->staff_model->isi_absen_guru($id_tugas,$staff);
+										}
+										
 										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Absen disimpan!!!</div>');
-										redirect('home_staff/mengabsen_siswa');
+										redirect('home_staff/mengabsen');
 									}
 								}
 								

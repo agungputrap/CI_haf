@@ -43,19 +43,21 @@
   							</button>
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuTransaksi">
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="pendaftaran">Pendaftaran</a></li>
-    							<li role="presentation"><a role="menuitem" tabindex="-1" href="bayaran">Pembayaran</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="bayaran">Pembayaran</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="cari_nama">Cari Nama Siswa</a></li>
   							</ul>
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<div class="dropdown">
-  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuKesiswaan" data-toggle="dropdown" aria-expanded="true">
-    						Kesiswaan
+  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuKegiatan" data-toggle="dropdown" aria-expanded="true">
+    						Kegiatan
     						<span class="caret"></span>
   							</button>
-  							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKesiswaan">
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="mengabsen_siswa">Mengabsen Siswa</a></li>
+  							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKegiatan">
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="mengabsen">Mengabsen</a></li>
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Pengaturan Siswa Baru</a></li>
+    							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Mengatur Jadwal</a></li>
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Upload Hasil TO</a></li>
   							</ul>
 						</div>

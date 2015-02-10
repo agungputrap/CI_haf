@@ -17,7 +17,23 @@
 	               </div>
 	               </div>
 	               </div>
+
+	                
 	               
+					<div class="form-group">
+	               <div class="row colbox">
+	               <div class="col-lg-4 col-sm-4">
+	               <label for="type" class="control-label">Role</label>
+	               </div>
+	               <div class="col-lg-8 col-sm-8">
+	               		<input type='radio' name='type' value='siswa'> Siswa
+						<br>
+						<input type='radio' name='type' value='guru'> Guru
+						<br>
+	               </div>
+	               </div>
+	               </div>
+
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">

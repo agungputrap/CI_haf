@@ -19,8 +19,14 @@ class staff_model extends CI_Model{
 	}
 
 	//check usernamenya ada atau tidak di tabel user
-	function ambil_nama($data){
+	function ambil_nama_siswa($data){
 		$sql = "select nama from siswa where id_user = (select id from user where username = ". "'".$data."')";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function ambil_nama_guru($data){
+		$sql = "select nama from guru where id_user = (select id from user where username = ". "'".$data."')";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -53,14 +59,31 @@ class staff_model extends CI_Model{
 		$query = $this->db->query($sql);
 	}
 
+	function isi_absen_guru($kodejadwal,$staff,$status){
+		$sql = "insert into absensi_siswa(kode_jadwal,staff_yang_mengabsen,status_mengajar,kode_guru_pengganti, tanggal, waktu) values (". "'".$kodejadwal."',"."'".$staff."'".","."'".$nama."'".",NULL,current_date,current_time)";
+		$query = $this->db->query($sql);
+	}
+
 	//check apakah user yang sama sudah absen sebelumnya
-	function duplikat($user,$kodetugas){
+	function duplikat_siswa($user,$kodetugas){
 		$sql = "select * from absensi_siswa where nama_siswa = ". "'".$user."' and tanggal = current_date and kode_jadwal = ". "'".$kodetugas."'";
 		$query = $this->db->query($sql);
 		return $query->num_rows();
 	}
 
-	function ambil_shift_siswa(){
+	function duplikat_guru($kodetugas){
+		$sql = "select * from absensi_guru where tanggal = current_date and kode_jadwal = ". "'".$kodetugas."'";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+
+	function duplikat_guru_pengganti($user,$kodetugas){
+		$sql = "select * from absensi_guru where kode_guru_pengganti = ". "'".$user."' tanggal = current_date and kode_jadwal = ". "'".$kodetugas."'";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+
+	function ambil_shift(){
 		$sql = "select kode_shift, waktu_mulai, waktu_berakhir from shift_ssc where kode_shift LIKE 'B%' ";
 		$query = $this->db->query($sql);
 		return $query->result_array();
@@ -72,8 +95,15 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
-	function ambil_jadwal($user,$day,$shift){
+	function ambil_jadwal_siswa($user,$day,$shift){
 		$sql = "select id_jadwal from jadwal where kode_shift = ". "'".$shift."' and hari = ". "'".$day."' and kode_kelas= (select kode_kelas from siswa where nama = ". "'".$user."')";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+		//return "Berhasil";
+	}
+
+	function ambil_jadwal_guru($user,$day,$shift){
+		$sql = "select id_jadwal from jadwal where kode_shift = ". "'".$shift."' and hari = ". "'".$day."' and kode_guru = (select kode_guru from guru where nama = ". "'".$user."')";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 		//return "Berhasil";
@@ -120,7 +150,7 @@ class staff_model extends CI_Model{
 
 	function get_jadwal_staff($user)
 	{
-		$sql = "select A.Hari, A.Tanggal_Mulai from tugas_staff A, staff B , user C where A.Kode_Staff = B.Id_Staff and B.Id_User = C.Id and C.Username = '".$user."'";
+		$sql = "select A.Id_Tugas, A.Kode_Shift, A.Hari, A.Tanggal_Mulai from tugas_staff A, staff B , user C where A.Kode_Staff = B.Id_Staff and B.Id_User = C.Id and C.Username = '".$user."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -135,6 +165,12 @@ class staff_model extends CI_Model{
 
 	function ambil_pembayaran($name){
 		$sql = "select * from siswa where nama ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function cari_nama($name){
+		$sql = "select * from siswa where nama LIKE '%".$name."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

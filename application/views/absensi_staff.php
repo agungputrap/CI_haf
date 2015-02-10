@@ -70,6 +70,16 @@
 				{
 					for ($i=0; $i < count($absen) ; $i++) { 
 						if ($date == $absen[$i]['Tanggal']){
+								$found = true;
+								$j = 0;
+								while ($found) {
+									if ($jadwal[$j]['Id_Tugas'] == $absen[$i]['Kode_Tugas']) {
+										$found = false;
+									} else {
+										$j++;
+									}
+									
+								}
 								$check = array_pop($array_kode);
 							if ($check != $absen[$i]['Kode_Tugas']) {
 								if ($absen[$i]['Status'] == "Berhasil") {
@@ -81,7 +91,7 @@
 								echo "<td>".$date."</td>";
 								echo "<td>".$hari_indo."</td>";
 								echo "<td>".$absen[$i]['Status']."</td>";
-								echo "<td>".$absen[$i]['Kode_Tugas']."</td>";
+								echo "<td>".$jadwal[$j]['Kode_Shift']."</td>";
 								echo "<td>".$absen[$i]['Waktu']."</td>";
 								echo "</tr>";
 								++$no_tabel_row;
