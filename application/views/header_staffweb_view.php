@@ -42,7 +42,7 @@
     						<span class="caret"></span>
   							</button>
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuTransaksi">
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="pendaftaran">Pendaftaran</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="pendaftaran">Pendaftaran Siswa</a></li>
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="bayaran">Pembayaran</a></li>
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="cari_nama">Cari Nama Siswa</a></li>
   							</ul>
