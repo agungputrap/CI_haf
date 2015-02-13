@@ -57,7 +57,7 @@
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKegiatan">
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="mengabsen">Mengabsen</a></li>
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Pengaturan Siswa Baru</a></li>
-    							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Mengatur Jadwal</a></li>
+    							<li role="presentation"><a role="menuitem" tabindex="-1" href="see_jadwal">Mengatur Jadwal</a></li>
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Upload Hasil TO</a></li>
   							</ul>
 						</div>

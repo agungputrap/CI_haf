@@ -175,5 +175,29 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	function jadwal(){
+		$sql = "select * from jadwal order by 'Kode_Kelas'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function kelas(){
+		$sql = "select * from kelas";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function shift(){
+		$sql = "select * from shift_ssc where Kode_Shift LIKE 'B%' ";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function guru(){
+		$sql = "select * from guru ";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 }
 ?>

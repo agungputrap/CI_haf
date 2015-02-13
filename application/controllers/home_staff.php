@@ -487,6 +487,33 @@
 					}
 				}
 		}
+
+		public function see_jadwal(){
+				$temp = $this->staff_model->loadData($this->session->userdata('username'));
+
+				$kelas = $this->staff_model->kelas();
+				$shift = $this->staff_model->shift();
+				$guru = $this->staff_model->guru();
+
+				$arrHari = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+
+				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
+
+				//simpan disuatu array yang memiliki key -> value
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"see_jadwal", "data" => $temp
+					, "kelas"=> $kelas, "shift" => $shift, "guru"=>$guru);
+				
+				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
+				$this->load->view("header_staffweb_view",$var_param);
+
+				//jadikan parameter dari home_siswa untuk memberikan data tentang siswa tersebut
+				$this->load->view('all_jadwal',$var_param);
+				$this->load->view("footer_view");		
+		}
+
+		public function proc_jadwal(){
+
+		}
 	}
 
 ?>
