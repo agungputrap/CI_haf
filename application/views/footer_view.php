@@ -1,6 +1,6 @@
 	<div class="navbar navbar-default navbar-fixed-bottom">
 		<div class="container">
-			<p class="navbar-text">Site build by Agung & Hafiyyan</p>
+			<p class="navbar-text">Site build by Agung & David & Hafiyyan</p>
 		</div>
 	</div>
 </body>

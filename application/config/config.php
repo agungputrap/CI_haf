@@ -124,9 +124,10 @@ $config['subclass_prefix'] = 'MY_';
 | Leave blank to allow all characters -- but only if you are insane.
 |
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
+|'a-z 0-9~%.:_\-'
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = '';
 
 
 /*

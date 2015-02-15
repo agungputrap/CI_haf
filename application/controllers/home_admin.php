@@ -32,8 +32,42 @@ class home_admin extends CI_Controller
 				//simpan disuatu array yang memiliki key -> value
 				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $temp);
 				
+				$this->load->view("header_inweb_admin_view",$var_param);
 				$this->load->view("home_admin_view");
+				$this->load->view("footer_view");
 			}
+		}
+
+		public function profil_siswa()
+		{
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
+				//simpan semua data yang penting dalam variabel temp
+				$temp = $this->home_model->loadData($this->session->userdata('username'));
+				$temp_list_siswa = $this->admin_model->get_list_siswa();
+
+				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
+
+				//simpan disuatu array yang memiliki key -> value
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda", "data" => $temp,"data_list_siswa"=> $temp_list_siswa);
+				
+				$this->load->view("header_inweb_admin_view",$var_param);
+				$this->load->view("admin_profil_siswa_view");
+				$this->load->view("footer_view");
+			}
+		}
+
+		public function profil_siswa_detail($nama){
+			$clean_nama = str_replace("%20", " ", $nama);
+			$temp_detail_profil_siswa = $this->admin_model->loadData($clean_nama);
+
+			$var_param = array("data_detail_siswa"=>$temp_detail_profil_siswa);
+
+			$this->load->view("admin_detail_siswa",$var_param);
 		}
 	}
 ?>
