@@ -82,5 +82,12 @@ class siswa_model extends CI_Model{
 		$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
 		$query = $this->db->query($sql);
 	}
+
+	function get_jadwal_siswa($user)
+	{
+		$sql = "select A.Hari, A.Kode_Kelas, A.Kode_Shift, B.Waktu_Mulai, Waktu_Berakhir from jadwal A, shift_ssc B, siswa C, user D where D.Username='".$user."' and C.Id_User = D.Id and A.Kode_Kelas = C.Kode_Kelas and B.Kode_Shift = A.Kode_Shift";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }
 ?>

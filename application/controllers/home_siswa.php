@@ -78,9 +78,10 @@
 			{
 				$temp_data_user = $this->home_model->loadData($this->session->userdata('username'));
 				$temp_hari_mulai = $this->siswa_model->get_jadwal_kelas_siswa($this->session->userdata('username'));
+				$temp_jadwal_siswa = $this->siswa_model->get_jadwal_siswa($this->session->userdata('username'));
 				$temp_absensi_siswa = $this->siswa_model->get_absen_siswa($temp_data_user[0]['Nama']);
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi","data"=>$temp_data_user,"data_hari_mulai" => $temp_hari_mulai,"data_absensi_siswa"=>$temp_absensi_siswa);
+					"halaman"=>"absensi","data"=>$temp_data_user,"data_hari_mulai" => $temp_hari_mulai,"data_absensi_siswa"=>$temp_absensi_siswa, "data_jadwal_siswa" => $temp_jadwal_siswa);
 				$this->load->view("header_inweb_view",$var_param);
 				$this->load->view('absensi_siswa_view',$var_param);
 				$this->load->view("footer_view");	

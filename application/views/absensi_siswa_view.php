@@ -1,8 +1,66 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 well">
-			<h1 align="center"> <?php echo ($data[0]['Nama']) ?> </h1>
-			<img src="<?php echo base_url("assets/images/".$data[0]['Username'].".jpg\""); ?>" class="img-responsive img-haf" alt="Responsive image">
+		<div class="col-md-5">
+			<h2 align='center'> Jadwal Bimbingan Belajar </h2>
+			<div clas="table-responsive">
+				<table class="table table-hover">
+					<?php
+					 	echo "<tr>";
+					 	echo "<td align='center'><strong>Hari</strong></td>";
+					 	echo "<td><strong>Kode Kelas</strong></td>";
+					 	echo "<td><strong>Kode Shift</strong></td>";
+					 	echo "<td><strong>Waktu Mulai</strong></td>";
+					 	echo "<td><strong>Waktu Selesai</strong></td>";
+					 	echo "</tr>";
+
+					 	foreach ($data_jadwal_siswa as $list) {
+					 		echo"<tr>";
+					 	  	foreach ($list as $value) {
+					 	  		if ($value=="Sunday")
+					 			{
+					 				$value = "Minggu";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Monday")
+					 			{
+					 				$value="Senin";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Tuesday")
+					 			{
+					 				$value="Selasa";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Wednesday")
+					 			{
+					 				$value="Rabu";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Thursday")
+					 			{
+					 				$value="Kamis";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Friday")
+					 			{
+					 				$value="Jumat";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			elseif($value=="Saturday")
+					 			{
+					 				$value="Sabtu";
+					 				echo "<td align='center'>".$value."</td>";
+					 			}
+					 			else
+					 			{
+					 				echo "<td align='center'>".$value."</td>";	
+					 			}	 	  		
+					 	  	}
+					 	  	echo "</tr>";
+					 	  }  
+					?>
+				</table>
+			</div>
 		</div>
 		<div class="col-md-6 col-md-offset-1">
 		<?php 
@@ -14,6 +72,7 @@
 
 		//membuat tabel
 		echo "<div class='col-md-12'>";
+		echo "<h2 align='center'> Daftar Absensi  </h2>";
 		echo "<table class='table table-striped'>";
 		echo "<tr>";
 		echo "<td><strong>No.</strong></td>";
