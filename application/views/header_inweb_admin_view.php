@@ -55,8 +55,8 @@
     						<span class="caret"></span>
   							</button>
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKegiatan">
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="mengabsen">Profil Staff</a></li>
-    							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Profil Guru</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="profil_staff">Profil Staff</a></li>
+    							<li role="presentation"><a role="menuitem" tabindex="-1" href="profil_guru">Profil Guru</a></li>
     							<li role="presentation"><a role="menuitem" tabindex="-1" href="see_jadwal">dummy menu #1</a></li>
     							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">dummy menu #2</a></li>
   							</ul>
