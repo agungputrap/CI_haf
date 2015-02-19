@@ -470,7 +470,7 @@
 											$this->staff_model->isi_absen_siswa($id_tugas,$nama,$staff);
 										}
 										else{
-											$this->staff_model->isi_absen_guru($id_tugas,$staff);
+											$this->staff_model->isi_absen_guru($id_tugas,$nama,$staff);
 										}
 										
 										$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Absen disimpan!!!</div>');

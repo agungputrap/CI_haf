@@ -59,8 +59,8 @@ class staff_model extends CI_Model{
 		$query = $this->db->query($sql);
 	}
 
-	function isi_absen_guru($kodejadwal,$staff,$status){
-		$sql = "insert into absensi_siswa(kode_jadwal,staff_yang_mengabsen,status_mengajar,kode_guru_pengganti, tanggal, waktu) values (". "'".$kodejadwal."',"."'".$staff."'".","."'".$nama."'".",NULL,current_date,current_time)";
+	function isi_absen_guru($kodejadwal,$nama,$staff){
+		$sql = "insert into absensi_siswa(nama_guru,kode_jadwal,staff_yang_mengabsen,status_mengajar,kode_guru_pengganti, tanggal, waktu) values ("."'".$nama."'".",". "'".$kodejadwal."',"."'".$staff."'".",'Mengajar',NULL,current_date,current_time)";
 		$query = $this->db->query($sql);
 	}
 

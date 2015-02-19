@@ -57,5 +57,12 @@ class guru_model extends CI_Model{
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+	function get_gaji_guru($name)
+	{
+		$sql = "select gaji_per_shift from guru where nama ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 }
 ?>

@@ -1,10 +1,32 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 well">
-			<h1 align="center"> <?php echo ($data[0]['Nama']) ?> </h1>
-			<img src="<?php echo base_url("assets/images/".$data[0]['Username'].".jpg\""); ?>" class="img-responsive img-haf" alt="Responsive image">
+		<div class="col-md-5">
+			<h2 align="center">Data Gaji</h2>
+			<div class="table-responsive">
+				<table class ='table table-hover'>
+					<?php
+						$rows=count($data_absensi_guru);
+						$total_gaji=$data_gaji_guru[0]["gaji_per_shift"] * $rows;
+
+					 	echo "<tr>";
+					 	echo "<td align='left'><strong>Banyak Sesi</strong></td>";
+					 	echo "<td>".$rows." Sesi</td>";
+					 	echo "</tr>";
+
+					 	echo "<tr>";
+					 	echo "<td align='left'><strong>Gaji per Sesi</strong></td>";
+					 	echo "<td>Rp.".$data_gaji_guru[0]["gaji_per_shift"]."</td>";
+					 	echo "</tr>"; 
+
+					 	echo "<tr>";
+					 	echo "<td align='left'><strong>Total Gaji</strong></td>";
+					 	echo "<td><strong>Rp.".$total_gaji."</strong></td>";
+					 	echo "</tr>"; 
+					?>
+				</table>
+			</div>
 		</div>
-		<div class="col-md-6 col-md-offset-1">
+		<div class="col-md-7 col-md-offset-0">
 		<?php 
 		date_default_timezone_set('Asia/Jakarta');
 		//start date
@@ -14,6 +36,7 @@
 
 		//membuat tabel
 		echo "<div class='col-md-12'>";
+		echo "<h2 align='center'>Data Absensi</h2>";
 		echo "<table class='table table-striped'>";
 		echo "<tr>";
 		echo "<td><strong>No.</strong></td>";
@@ -74,7 +97,7 @@
 							echo "<td align='center'>".$date."</td>";
 							echo "<td align='center'>".$hari_indo."</td>";
 							echo "<td align='center'>".$data_absensi_guru[$i]['Kode_Jadwal']."</td>";
-							echo "<td align='center'>Hadir</td>";
+							echo "<td align='center'>Mengajar</td>";
 							echo "<td align='center'>".$data_absensi_guru[$i]['Staff_yang_mengabsen']."</td>";
 							echo "<td align='center'>-</td>";
 							echo "</tr>";
@@ -92,6 +115,7 @@
 								echo "<td align='center'>".$hari_indo."</td>";
 								echo "<td align='center'>-</td>";
 								echo "<td align='center'>Tidak Mengajar</td>";
+								echo "<td align='center'>-</td>";
 								echo "<td align='center'>-</td>";
 								echo "</tr>";
 								++$no_tabel_row;
@@ -114,7 +138,7 @@
 									echo "<td align='center'>".$date."</td>";
 									echo "<td align='center'>".$hari_indo."</td>";
 									echo "<td align='center'>-</td>";
-									echo "<td align='center'>Tidak Hadir</td>";
+									echo "<td align='center'>Tidak Mengajar</td>";
 									echo "<td align='center'>-</td>";
 									echo "<td align='center'>-</td>";
 									echo "</tr>";

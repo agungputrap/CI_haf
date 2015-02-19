@@ -78,8 +78,9 @@
 				$temp_data_user = $this->home_model->loadGuru($this->session->userdata('username'));
 				$temp_hari_mulai = $this->guru_model->get_jadwal_kelas_guru($this->session->userdata('username'));
 				$temp_absensi_siswa = $this->guru_model->get_absen_guru($temp_data_user[0]['Nama']);
+				$temp_gaji_guru = $this->guru_model->get_gaji_guru($temp_data_user[0]['Nama']);
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi","data"=>$temp_data_user,"data_hari_mulai" => $temp_hari_mulai,"data_absensi_guru"=>$temp_absensi_siswa);
+					"halaman"=>"absensi","data"=>$temp_data_user,"data_hari_mulai" => $temp_hari_mulai,"data_absensi_guru"=>$temp_absensi_siswa,"data_gaji_guru"=>$temp_gaji_guru);
 				$this->load->view("header_guruweb_view",$var_param);
 				$this->load->view('absensi_guru_view',$var_param);
 				$this->load->view("footer_view");	
