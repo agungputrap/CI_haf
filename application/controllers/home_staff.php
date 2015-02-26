@@ -158,6 +158,8 @@
 				$program = $this->input->post("program");
 				$biaya = $this->input->post("biaya");
 
+
+
 				
 				$this->form_validation->set_rules("txt_username","Username","trim|required|min_length[5]|max_length[24]");
 				$this->form_validation->set_rules("txt_password","Password","trim|required|min_length[5]|max_length[24]");
@@ -169,7 +171,11 @@
 				if ($this->form_validation->run()==FALSE | empty($program) | empty($biaya)) {
 					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
 					redirect("home_staff/pendaftaran");
-				} else {
+				} else if ($this->staff_model->check_username($username) > 0) {
+					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Username sudah ada</div>');
+					redirect("home_staff/pendaftaran");
+				} 
+				else {
 
 					$index = 0;
 					$output = "";
