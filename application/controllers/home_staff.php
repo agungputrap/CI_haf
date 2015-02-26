@@ -514,11 +514,18 @@
 					} elseif ($jadwal[$i]['Hari'] == "Saturday") {
 						$indexDay = 5;
 					}
-
+					/*
 					$arrOrdering = $jadwal[$i];
 					if ($jadwal[$i]['Kode_Shift'] == "S01") {
 						$jadwalOrdered[$keyCandidate]['0'][$indexDay] = $arrOrdering;
 					} elseif ($jadwal[$i]['Kode_Shift'] == "S02") {
+						$jadwalOrdered[$keyCandidate]['1'][$indexDay] = $arrOrdering;
+					}
+					*/
+					$arrOrdering = $jadwal[$i];
+					if ($jadwal[$i]['Kode_Shift'] == "B01") {
+						$jadwalOrdered[$keyCandidate]['0'][$indexDay] = $arrOrdering;
+					} elseif ($jadwal[$i]['Kode_Shift'] == "B02") {
 						$jadwalOrdered[$keyCandidate]['1'][$indexDay] = $arrOrdering;
 					}
 				}
