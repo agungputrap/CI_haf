@@ -123,18 +123,18 @@
 			</tr>
 			<?php
 			/*
-			var_dump($tabel_jadwal);
+			var_dump($kodePelajaran);
 			exit();
 			*/
 			foreach ($tabel_jadwal as $class => $day) {
 				echo "<tr>";
-					echo "<td rowspan='2'>".@$class."</td>";
+					echo "<td rowspan='2' align='center'>".@$class."</td>";
 				for ($i=0; $i < 2 ; $i++) { 
 					for ($j=0; $j < 7; $j++) { 
-						if (empty(@$day[$i])) {
+						if (empty(@$day[$i][$j])) {
 							echo "<td></td>";
 						} else {
-							echo "<td>".@$day[$i][$j]['Kode_Guru']."</td>";
+							echo "<td>".@$day[$i][$j]['Kode_Guru']."/".$kodePelajaran[$day[$i][$j]['Kode_Guru']]."</td>";
 						}
 					}
 					echo "</tr>";

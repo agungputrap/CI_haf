@@ -497,6 +497,12 @@
 				$jadwal = $this->staff_model->jadwal();
 
 				$jadwalOrdered = array();
+				$codeSubject = array();
+
+				for ($i=0; $i < count($guru) ; $i++) { 
+					$codeSubject[$guru[$i]['Kode_Guru']] = $guru[$i]['Mata_Pelajaran'];
+				}
+
 				for ($i=0; $i < count($jadwal) ; $i++) { 
 					$keyCandidate = $jadwal[$i]['Kode_Kelas'];
 					$indexDay = 6;
@@ -536,7 +542,7 @@
 
 				//simpan disuatu array yang memiliki key -> value
 				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"see_jadwal", "data" => $temp
-					, "kelas"=> $kelas, "shift" => $shift, "guru"=>$guru, "tabel_jadwal"=>$jadwalOrdered);
+					, "kelas"=> $kelas, "shift" => $shift, "guru"=>$guru, "tabel_jadwal"=>$jadwalOrdered, "kodePelajaran"=>$codeSubject);
 				
 				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
 				$this->load->view("header_staffweb_view",$var_param);
