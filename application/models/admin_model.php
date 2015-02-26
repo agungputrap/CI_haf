@@ -125,6 +125,41 @@
 			$sql = "update guru set Jenis_Kelamin = " ."'". $jenis_kelamin ."',"."Mata_Pelajaran ='".$mata_pelajaran."',"."Program ='".$program."',Status_Guru='".$status_guru."',Gaji_per_Shift =".$gaji." where Kode_Guru='".$kode."'";
 			$query = $this->db->query($sql);
 		}
+
+		//menghapus 1 row siswa
+		function delete_siswa($id)
+		{
+			$sql = "delete from siswa where No_SSC =".$id;
+			$query = $this->db->query($sql);
+		}
+
+		//mendapatkan detail profil siswa dengan menggunakan id_siswa yang dapat diedit
+		function loadEditableDataSiswa($id)
+		{
+			$sql = "select * from siswa left outer join user on (siswa.id_user = user.Id) where No_SSC=".$id;
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
+		//mendapatkan id siswa
+		function getSiswaId($username)
+		{
+			$sql = "select siswa.No_SSC from siswa, user where siswa.Id_User = user.Id and user.Username ='".$username."'";
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_siswa_tableUser($username, $pass,$alamat, $telp){
+			$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
+			$query = $this->db->query($sql);
+		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_siswa_tableSiswa($kode, $jenis_kelamin, $program, $kode_kelas){
+			$sql = "update siswa set Jenis_Kelamin = " ."'". $jenis_kelamin ."',"."Program =".$program.","."Kode_Kelas =".$kode_kelas." where No_SSC=".$kode;
+			$query = $this->db->query($sql);
+		}
 	}
 
 ?>

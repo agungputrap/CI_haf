@@ -19,16 +19,26 @@
 				<?php
 					foreach ($data_list_siswa as $list) {
 						echo "<tr>";
+						$temp_id_siswa = 0;
 					 	foreach ($list as $key => $value) {
 					 		if($key=="Nama")
 					 		{
 					 			echo "<td align='center'><a href='profil_siswa_detail/$value'>".$value."</a></td>";
 					 		}
+
+					 		elseif ($key == "No_SSC")
+					 		{
+					 			$temp_id_siswa = $value;
+					 			echo "<td align='center'>".$value."</td>";
+					 		}
+
 					 		else
 					 		{
 					 			echo "<td align='center'>".$value."</td>";
 					 		}
 					 	}
+					 	echo "<td align='center'><a class='btn btn-info' href='edit_data_siswa/$temp_id_siswa'> Edit </a></td>";
+					 	echo "<td align='center'><a class='btn btn-danger' href='hapus_siswa/$temp_id_siswa'> Hapus</a></td>";
 					 	echo "</tr>";
 					 } 
 				?>
