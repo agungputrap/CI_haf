@@ -54,6 +54,35 @@
 			$query = $this->db->query($sql);
 			return $query->result_array();
 		}
+
+		//menghapus 1 row staff
+		function delete_staff($id)
+		{
+			$sql = "delete from staff where Id_Staff =".$id;
+			$query = $this->db->query($sql);
+		}
+
+
+		//mendapatkan detail profil staff dengan menggunakan id_staff yang dapat diedit
+		function loadEditableDataStaff($id)
+		{
+			$sql = "select * from staff left outer join user on (staff.id_user = user.Id) where Id_Staff=".$id;
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_staff_tableUser($username, $pass,$alamat, $telp){
+			$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
+			$query = $this->db->query($sql);
+		}
+		//mendapatkan id staff
+		function getStaffId($username)
+		{
+			$sql = "select staff.Id_Staff from staff, user where staff.Id_User = user.Id and user.Username ='".$username."'";
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
 	}
 
 ?>
