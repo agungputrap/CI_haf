@@ -24,11 +24,12 @@
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
 						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Jenis Transaksi</strong></td>";
 						echo "<td><strong>Atas Nama</strong></td>";
-						echo "<td><strong>Nama</strong></td>";
 						echo "<td><strong>Staff Yang Menerima</strong></td>";
-						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Nominal</strong></td>";
 						echo "<td><strong>Tanggal Pembayaran</strong></td>";
+						echo "<td><strong>Waktu</strong></td>";
 					echo "</tr>";
 					foreach ($data_pembayaran as $list) {
 						echo "<tr class='warning'>";
@@ -51,11 +52,12 @@
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
 						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Jenis Transaksi</strong></td>";
 						echo "<td><strong>Atas Nama</strong></td>";
-						echo "<td><strong>Nama</strong></td>";
 						echo "<td><strong>Staff Yang Menerima</strong></td>";
-						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Nominal</strong></td>";
 						echo "<td><strong>Tanggal Pembayaran</strong></td>";
+						echo "<td><strong>Waktu</strong></td>";
 					echo "</tr>";
 					foreach ($data_pembayaran as $list) {
 						echo "<tr class='info'>";
@@ -77,11 +79,12 @@
 					echo "<table class='table table-striped'>";
 					echo "<tr>";
 						echo "<td><strong>Kode Pembayaran</strong></td>";
+						echo "<td><strong>Jenis Transaksi</strong></td>";
 						echo "<td><strong>Atas Nama</strong></td>";
-						echo "<td><strong>Nama</strong></td>";
 						echo "<td><strong>Staff Yang Menerima</strong></td>";
-						echo "<td><strong>Nama Staff</strong></td>";
+						echo "<td><strong>Nominal</strong></td>";
 						echo "<td><strong>Tanggal Pembayaran</strong></td>";
+						echo "<td><strong>Waktu</strong></td>";
 					echo "</tr>";
 					for ($i=0; $i < 6; $i++) { 
 						echo "<td align='center'> - </td>";

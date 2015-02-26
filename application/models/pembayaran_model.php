@@ -18,8 +18,7 @@ class pembayaran_model extends CI_Model
 	//resume pembayaran
 	function get_pembayaran($user)
 	{
-		$sql = "select A.kode_pembayaran , A.Atas_nama, B.nama , A.staff_yang_menerima , C.nama as Nama_Staff, A.Tanggal from pembayaran A, siswa B , staff C  where A.staff_yang_menerima = C.id_staff and A.atas_nama = B.no_ssc and
-		 B.no_ssc = (select D.No_SSC from siswa D , user E where E.Id = D.ID_User and E.Username = "."'".$user."')" ;
+		$sql = "select * from pembayaran where atas_nama =" ."'".$user."'" ;
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

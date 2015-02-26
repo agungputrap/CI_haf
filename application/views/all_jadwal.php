@@ -87,6 +87,19 @@
 	               </div>
 
 	               <div class="form-group">
+	               <div class="row colbox">
+	               <div class="col-lg-4 col-sm-4">
+	                    <label for="txt_username" class="control-label">Asal Sekolah</label>
+	               </div>
+	               <div class="col-lg-8 col-sm-8">
+	                    <input class="form-control" id="txt_asal" name="txt_asal" placeholder="Asal Sekolah" type="text" value="<?php echo set_value('txt_asal'); ?>" />
+	                    Isi dengan 5 - 24 Karakter
+	                    <span class="text-danger"><?php echo form_error('txt_asal'); ?></span>
+	               </div>
+	               </div>
+	               </div>
+
+	               <div class="form-group">
 	               <div class="col-lg-12 col-sm-12 text-center">
 	                    <input id="btn_daftar" name="btn_proses" type="submit" class="btn btn-default" value="Proses" />
 	                    <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />
