@@ -150,6 +150,7 @@
 				$username = $this->input->post("txt_username");
 				$password = $this->input->post("txt_password");
 				$nama = $this->input->post("txt_nama");
+				$asal = $this->input->post("txt_asal");
 				$sex = $this->input->post("sex");
 				$alamat = $this->input->post("txt_alamat");
 				$telp = $this->input->post("txt_telp");
@@ -160,6 +161,7 @@
 				
 				$this->form_validation->set_rules("txt_username","Username","trim|required|min_length[5]|max_length[24]");
 				$this->form_validation->set_rules("txt_password","Password","trim|required|min_length[5]|max_length[24]");
+				$this->form_validation->set_rules("txt_asal","Asal Sekolah","trim|required");
 				$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
 				$this->form_validation->set_rules("txt_alamat","Address","trim|required");
 				$this->form_validation->set_rules("txt_telp","Telephone","trim|required");
@@ -204,7 +206,7 @@
 					} else {
 						$this->staff_model->daftarkan_user($username,$password,$telp,$alamat,$dur);
 						$id_siswa = $this->staff_model->ambil_id_siswa($username);
-						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,"Lunas",'0');
+						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,$asal,"Lunas",'0');
 
 						$temp = $this->staff_model->loadData($this->session->userdata('username'));
 						$var_param= array("user"=>$this->session->userdata('username'),

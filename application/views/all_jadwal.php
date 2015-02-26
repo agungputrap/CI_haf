@@ -67,6 +67,26 @@
 	               </div>
 
 	               <div class="form-group">
+	               <div class="row colbox">
+	               <div class="col-lg-4 col-sm-4">
+	                    <label for="txt_paid" class="control-label">Guru</label>
+	               </div>
+	               <div class="col-lg-8 col-sm-8">
+	                    <?php
+	                    echo "<select name='guru' form ='jadwalform' id='guru'>";
+	                    	echo "<option value='NULL'>--Pilih Guru--</option>";
+	                    	for ($i=0; $i < count($guru) ; $i++) { 
+	                    		$opt = "<option value='".$guru[$i]['Kode_Guru']."'>".$guru[$i]['Nama']."</option>";
+	                    		echo $opt;
+	                    	}
+	                    echo "</select>";
+	                    $show = true;
+	                    ?>
+	               </div>
+	               </div>
+	               </div>
+
+	               <div class="form-group">
 	               <div class="col-lg-12 col-sm-12 text-center">
 	                    <input id="btn_daftar" name="btn_proses" type="submit" class="btn btn-default" value="Proses" />
 	                    <input id="btn_cancel" name="btn_cancel" type="reset" class="btn btn-default" value="Cancel" />

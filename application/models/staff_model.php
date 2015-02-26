@@ -114,10 +114,10 @@ class staff_model extends CI_Model{
 		$query = $this->db->query($sql);
 	}
 
-	function daftarkan_siswa($username,$nama,$sex,$id_biaya,$status,$left){
-		$sql2 = "insert into siswa(id_user,no_ssc,nama,jenis_kelamin,program,kode_kelas,status_pembayaran,sisa_pembayaran) 
+	function daftarkan_siswa($username,$nama,$sex,$id_biaya,$asal,$status,$left){
+		$sql2 = "insert into siswa(id_user,no_ssc,nama,jenis_kelamin,program,asal_sekolah,kode_kelas,status_pembayaran,sisa_pembayaran) 
 		values 
-		("."'".$username."'".",'0',". "'".$nama."',"."'".$sex."'".","."'".$id_biaya."'".",'NULL',"."'".$status."'".",". "'".$left."')";
+		("."'".$username."'".",'0',". "'".$nama."',"."'".$sex."'".","."'".$id_biaya."'".","."'".$asal."'".",'NULL',"."'".$status."'".",". "'".$left."')";
 		
 		$query = $this->db->query($sql2);
 	}
