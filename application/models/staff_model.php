@@ -176,7 +176,7 @@ class staff_model extends CI_Model{
 	}
 
 	function jadwal(){
-		$sql = "select * from jadwal order by 'Kode_Kelas'";
+		$sql = "select * from jadwal";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

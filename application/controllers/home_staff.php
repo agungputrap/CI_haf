@@ -494,6 +494,34 @@
 				$kelas = $this->staff_model->kelas();
 				$shift = $this->staff_model->shift();
 				$guru = $this->staff_model->guru();
+				$jadwal = $this->staff_model->jadwal();
+
+				$jadwalOrdered = array();
+				for ($i=0; $i < count($jadwal) ; $i++) { 
+					$keyCandidate = $jadwal[$i]['Kode_Kelas'];
+					$indexDay = 6;
+					$arrOrdering = array();
+					if ($jadwal[$i]['Hari'] == "Monday") {
+						$indexDay = 0;
+					} elseif ($jadwal[$i]['Hari'] == "Tuesday") {
+						$indexDay = 1;
+					} elseif ($jadwal[$i]['Hari'] == "Wednesday") {
+						$indexDay = 2;
+					} elseif ($jadwal[$i]['Hari'] == "Thursday") {
+						$indexDay = 3;
+					} elseif ($jadwal[$i]['Hari'] == "Friday") {
+						$indexDay = 4;
+					} elseif ($jadwal[$i]['Hari'] == "Saturday") {
+						$indexDay = 5;
+					}
+
+					$arrOrdering = $jadwal[$i];
+					if ($jadwal[$i]['Kode_Shift'] == "S01") {
+						$jadwalOrdered[$keyCandidate]['0'][$indexDay] = $arrOrdering;
+					} elseif ($jadwal[$i]['Kode_Shift'] == "S02") {
+						$jadwalOrdered[$keyCandidate]['1'][$indexDay] = $arrOrdering;
+					}
+				}
 
 				$arrHari = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
 
@@ -501,7 +529,7 @@
 
 				//simpan disuatu array yang memiliki key -> value
 				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"see_jadwal", "data" => $temp
-					, "kelas"=> $kelas, "shift" => $shift, "guru"=>$guru);
+					, "kelas"=> $kelas, "shift" => $shift, "guru"=>$guru, "tabel_jadwal"=>$jadwalOrdered);
 				
 				//jadikan parameter dari view header untuk menentukan halaman mana yang muncul
 				$this->load->view("header_staffweb_view",$var_param);

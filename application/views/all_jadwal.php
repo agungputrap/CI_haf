@@ -69,19 +69,11 @@
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">
-	                    <label for="txt_paid" class="control-label">Guru</label>
+	                    <label for="txt_ruangan" class="control-label">Ruangan</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
-	                    <?php
-	                    echo "<select name='guru' form ='jadwalform' id='guru'>";
-	                    	echo "<option value='NULL'>--Pilih Guru--</option>";
-	                    	for ($i=0; $i < count($guru) ; $i++) { 
-	                    		$opt = "<option value='".$guru[$i]['Kode_Guru']."'>".$guru[$i]['Nama']."</option>";
-	                    		echo $opt;
-	                    	}
-	                    echo "</select>";
-	                    $show = true;
-	                    ?>
+	                    <input class="form-control" id="txt_ruangan" name="txt_ruangan" placeholder="Ruangan" type="text" value="<?php echo set_value('txt_ruangan'); ?>" />
+	                    <span class="text-danger"><?php echo form_error('txt_ruangan'); ?></span>
 	               </div>
 	               </div>
 	               </div>
@@ -89,12 +81,19 @@
 	               <div class="form-group">
 	               <div class="row colbox">
 	               <div class="col-lg-4 col-sm-4">
-	                    <label for="txt_username" class="control-label">Asal Sekolah</label>
+	                    <label for="txt_paid" class="control-label">Hari</label>
 	               </div>
 	               <div class="col-lg-8 col-sm-8">
-	                    <input class="form-control" id="txt_asal" name="txt_asal" placeholder="Asal Sekolah" type="text" value="<?php echo set_value('txt_asal'); ?>" />
-	                    Isi dengan 5 - 24 Karakter
-	                    <span class="text-danger"><?php echo form_error('txt_asal'); ?></span>
+	               		<select name='hari' form ='jadwalform' id='hari'>
+	               			<option value='NULL'>--Pilih Hari--</option>
+	               			<option value='Monday'>Senin</option>
+	               			<option value='Tueasday'>Selasa</option>
+	               			<option value='Wednesday'>Rabu</option>
+	               			<option value='Thursday'>Kamis</option>
+	               			<option value='Friday'>Jumat</option>
+	               			<option value='Saturday'>Sabtu</option>
+	               			<option value='Sunday'>Minggu</option>
+	               		</select>
 	               </div>
 	               </div>
 	               </div>
@@ -113,14 +112,30 @@
 	<div class="row">
 		<table class='table table-striped'>
 			<tr>
-				<td><strong>Kelas</strong></td>
-				<td><strong>Senin</strong></td>
-				<td><strong>Selasa</strong></td>
-				<td><strong>Rabu</strong></td>
-				<td><strong>Kamis</strong></td>
-				<td><strong>Jumat</strong></td>
-				<td><strong>Sabtu</strong></td>
+				<th>Kelas</th>
+				<th>Senin</th>
+				<th>Selasa</th>
+				<th>Rabu</th>
+				<th>Kamis</th>
+				<th>Jumat</th>
+				<th>Sabtu</th>
+				<th>Minggu</th>
 			</tr>
+			<?php
+			foreach ($tabel_jadwal as $class => $day) {
+				echo "<tr>";
+					echo "<td rowspan='2'>".$class."</td>"
+				for ($i=0; $i < 7 ; $i++) { 
+					if (empty($day[$i])) {
+						echo "<td></td>";
+					} else {
+						# code...
+					}
+					
+				}
+				echo "</tr>";
+			}
+			?>
 		</table>
 	</div>
 </div>
