@@ -37,6 +37,8 @@
 			<div class="col-lg-8 col-sm-8">
 				<div class="row top50">
 					<div class="col-lg-2 col-sm-2">
+					</div>
+					<div class="col-lg-2 col-sm-2">
 						<?php if (strcmp($halaman,"beranda")== 0) {
 							echo "<a class='btn active btn-success' href='home'>Beranda</a>";
 						} else {
@@ -57,15 +59,8 @@
 							echo "<a class='btn btn-success'href='absensi'>Absensi</a>";
 						} ?>
 					</div>
-					<div class="col-lg-2 col-sm-2">
-						<?php if (strcmp($halaman,"mengabsen siswa")== 0) {
-							echo "<a class='btn active btn-success'href='mengabsen_siswa'>Data Gaji</a>";
-						} else {
-							echo "<a class='btn btn-success'href='mengabsen_siswa'>Data Gaji</a>";
-						} ?>
-					</div>
-					<div class="col-lg-2 col-sm-2">
-					</div>
+					
+					
 					<a href="logout" class="btn pull-right btn-danger btn-primary btn-lg" id-"btn_logout" name="btn_logout" value="Logout">Logout</a>
 				</div>
 

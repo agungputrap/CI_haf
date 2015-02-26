@@ -59,6 +59,8 @@
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Pengaturan Siswa Baru</a></li>
     							<li role="presentation"><a role="menuitem" tabindex="-1" href="see_jadwal">Mengatur Jadwal</a></li>
     							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Upload Hasil TO</a></li>
+    							<li role="presentation"><a role="menuitem" tabindex="-1" href="add_Kelas">Menambahkan Kelas</a></li>
+    							<li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Menambahkan Shift</a></li>
   							</ul>
 						</div>
 					</div>

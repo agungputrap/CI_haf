@@ -150,7 +150,6 @@
 				$username = $this->input->post("txt_username");
 				$password = $this->input->post("txt_password");
 				$nama = $this->input->post("txt_nama");
-				$asal = $this->input->post("txt_asal");
 				$sex = $this->input->post("sex");
 				$alamat = $this->input->post("txt_alamat");
 				$telp = $this->input->post("txt_telp");
@@ -158,12 +157,9 @@
 				$program = $this->input->post("program");
 				$biaya = $this->input->post("biaya");
 
-
-
 				
 				$this->form_validation->set_rules("txt_username","Username","trim|required|min_length[5]|max_length[24]");
 				$this->form_validation->set_rules("txt_password","Password","trim|required|min_length[5]|max_length[24]");
-				$this->form_validation->set_rules("txt_asal","Asal Sekolah","trim|required");
 				$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
 				$this->form_validation->set_rules("txt_alamat","Address","trim|required");
 				$this->form_validation->set_rules("txt_telp","Telephone","trim|required");
@@ -171,11 +167,7 @@
 				if ($this->form_validation->run()==FALSE | empty($program) | empty($biaya)) {
 					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
 					redirect("home_staff/pendaftaran");
-				} else if ($this->staff_model->check_username($username) > 0) {
-					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Username sudah ada</div>');
-					redirect("home_staff/pendaftaran");
-				} 
-				else {
+				} else {
 
 					$index = 0;
 					$output = "";
@@ -212,7 +204,7 @@
 					} else {
 						$this->staff_model->daftarkan_user($username,$password,$telp,$alamat,$dur);
 						$id_siswa = $this->staff_model->ambil_id_siswa($username);
-						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,$asal,"Lunas",'0');
+						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,"Lunas",'0');
 
 						$temp = $this->staff_model->loadData($this->session->userdata('username'));
 						$var_param= array("user"=>$this->session->userdata('username'),
@@ -521,6 +513,89 @@
 
 		public function proc_jadwal(){
 
+		}
+
+		public function add_kelas(){
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
+				$program = array();
+				$idProg = array();
+				$persemester = array();
+
+				$biaya = $this->staff_model->ambil_biaya();
+				for ($i=0; $i < count($biaya); $i++) { 
+					foreach ($biaya[$i] as $key => $value) {
+						if ($key == "Nama_Program") {
+							//ambil bagian jamnya saja lalu ubah kedalam int
+							$program[$i] = $value;
+						} elseif ($key == "Id_Biaya") {
+							$idProgram[$i] = $value;
+						} else {
+							$persemester[$i] = $value;
+						}		
+					}
+				}
+
+				$temp = $this->staff_model->loadData($this->session->userdata('username'));
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"add_kelas", "data" => $temp, "program" => $program , "idProgram" => $idProgram);
+				$this->load->view("header_staffweb_view",$var_param);
+				$this->load->view('staff_tambahKelas_view',$var_param);	
+			}
+		
+		}
+
+		public function proc_add_Kelas(){
+			if($this->input->post('btn_tambah')=="tambah") {
+				$kodeKelas = $this->input->post("txt_codKelas");
+				$program = $this->input->post("program");
+				$idProgram = "";
+
+				
+				$this->form_validation->set_rules("txt_codKelas","kodkelas","trim|required|integer");
+				
+				if ($this->form_validation->run()==FALSE | empty($program)) {
+					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
+					redirect("home_staff/proc_add_Kelas");
+				} else {
+
+
+					
+					$classcheck = $this->staff_model->check_class($kodeKelas);
+
+					if ($classcheck > 0) {
+						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Kode kelas sudah ada!!!</div>');
+						redirect("home_staff/proc_add_Kelas");
+					} else {
+
+						$idProgram = $this->staff_model->ambil_biaya();
+						for ($i=0; $i < count($idProgram); $i++) { 
+							foreach ($idProgram[$i] as $key => $value) {
+								if ($key == "Nama_Program" && $program == $value) {
+									$ambil_id = $this->staff_model->ambil_id_biaya($program);
+									$idProgram = $ambil_id[0][id_biaya];
+								} 	
+							}
+						}
+
+						$this->staff_model->tambahKelas($kodeKelas,$idProgram);
+
+						$temp = $this->staff_model->loadData($this->session->userdata('username'));
+						$var_param= array("user"=>$this->session->userdata('username'),
+						"halaman"=>"proc_add_Kelas", "data" => $temp, "biaya" => $pembayaran[$index][$output],
+						"id_user" => @$id_siswa[0]['id'], "nama" => $nama, "staff" => $staff, "type" => "Pendaftaran" );
+						$this->load->view("header_staffweb_view",$var_param);
+						$this->load->view('staff_tambahKelas_view',$var_param);
+
+						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Berhasil Menambahkan Kelas</div>');
+								redirect("home_staff/add_kelas");
+					}
+				}
+			}
 		}
 	}
 

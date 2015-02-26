@@ -199,5 +199,23 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	function check_class($data){
+		$sql = "select * from kelas where kode = ". "'".$data."'";
+		$query = $this->db->query($sql);
+		return $query->num_rows();
+	}
+
+	function ambil_id_biaya($data){
+		$sql = "select id_biaya from biaya_ssc where nama_program ='".$data."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function tambahKelas($kode,$program){
+		$sql = "insert into kelas(kode,program)	values ('".$kode."'".",". "'".$program."')";
+
+		$query = $this->db->query($sql);
+	}
+
 }
 ?>
