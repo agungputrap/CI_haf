@@ -19,16 +19,24 @@
 				<?php
 					foreach ($data_list_guru as $list) {
 						echo "<tr>";
+						$temp_kode_guru="";
 					 	foreach ($list as $key => $value) {
 					 		if($key=="Nama")
 					 		{
 					 			echo "<td align='center'><a href='profil_guru_detail/$value'>".$value."</a></td>";
+					 		}
+					 		elseif ($key == "Kode_Guru")
+					 		{
+					 			$temp_kode_guru = $value;
+					 			echo "<td align='center'>".$value."</td>";
 					 		}
 					 		else
 					 		{
 					 			echo "<td align='center'>".$value."</td>";
 					 		}
 					 	}
+					 	echo "<td align='center'><a class='btn btn-info' href='edit_data_guru/$temp_kode_guru'> Edit </a></td>";
+					 	echo "<td align='center'><a class='btn btn-danger' href='hapus_guru/$temp_kode_guru'> Hapus</a></td>";
 					 	echo "</tr>";
 					 } 
 				?>

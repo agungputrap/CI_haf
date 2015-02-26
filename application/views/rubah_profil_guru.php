@@ -41,7 +41,7 @@
 		</div>
 		<div class="col-md-6 col-md-offset-1 well">
 			<?php $attributes = array("class" => "form-horizontal", "id" => "rubahprofilform", "name" => "rubahprofilform");
-				echo form_open_multipart('home_admin/proc_rubah_profil_staff/'.$data[0]['Username'], $attributes);?>
+				echo form_open_multipart('home_admin/proc_rubah_profil_guru/'.$data[0]['Username'], $attributes);?>
 			<fieldset>
 				<legend>EDIT PROFIL</legend>
 					<div class="form-group">
@@ -67,7 +67,7 @@
 	            	<div class="form-group">
 		                <div class="row colbox">
 			                <div class="col-lg-4 col-sm-4">
-			                    <label for="jenis_kelamin_staff" class="control-label">Jenis Kelamin</label>
+			                    <label for="jenis_kelamin_guru" class="control-label">Jenis Kelamin</label>
 			                </div>
 			                <div class="col-lg-8 col-sm-8">
 			                    <input class="form-control" id="txt_jenis_kelamin" name="txt_jenis_kelamin" type="text" value="<?php echo set_value('txt_jenis_kelamin'); ?>" />
@@ -77,10 +77,30 @@
 	            	<div class="form-group">
 		                <div class="row colbox">
 			                <div class="col-lg-4 col-sm-4">
-			                    <label for="bagian" class="control-label">Bagian</label>
+			                    <label for="bagian" class="control-label">Mata Pelajaran</label>
 			                </div>
 			                <div class="col-lg-8 col-sm-8">
-			                    <input class="form-control" id="txt_bagian" name="txt_bagian" type="text" value="<?php echo set_value('txt_bagian'); ?>" />
+			                    <input class="form-control" id="txt_mapel" name="txt_mapel" type="text" value="<?php echo set_value('txt_mapel'); ?>" />
+			                </div>
+		                </div>
+	            	</div>
+	            	<div class="form-group">
+		                <div class="row colbox">
+			                <div class="col-lg-4 col-sm-4">
+			                    <label for="gaji" class="control-label">Program</label>
+			                </div>
+			                <div class="col-lg-8 col-sm-8">
+			                    <input class="form-control" id="txt_program" name="txt_program" type="text" value="<?php echo($data[0]['Program']); ?>" />
+			                </div>
+		                </div>
+	            	</div>
+	            	<div class="form-group">
+		                <div class="row colbox">
+			                <div class="col-lg-4 col-sm-4">
+			                    <label for="gaji" class="control-label">Status Guru</label>
+			                </div>
+			                <div class="col-lg-8 col-sm-8">
+			                    <input class="form-control" id="txt_status" name="txt_status" type="text" value="<?php echo($data[0]['Status_Guru']); ?>" />
 			                </div>
 		                </div>
 	            	</div>
@@ -90,7 +110,7 @@
 			                    <label for="gaji" class="control-label">Gaji</label>
 			                </div>
 			                <div class="col-lg-8 col-sm-8">
-			                    <input class="form-control" id="txt_gaji" name="txt_gaji" type="text" value="<?php echo($data[0]['Gaji_per_Bulan']); ?>" />
+			                    <input class="form-control" id="txt_gaji" name="txt_gaji" type="text" value="<?php echo($data[0]['Gaji_per_Shift']); ?>" />
 			                </div>
 		                </div>
 	            	</div>

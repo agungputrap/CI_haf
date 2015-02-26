@@ -17,9 +17,8 @@
 				</tr>
 				<?php
 					foreach ($data_list_staff as $list) {
-						var_dump($list);
 						echo "<tr>";
-						$temp_nomor_siswa = "";
+						$temp_nomor_staff = "";
 					 	foreach ($list as $key => $value) {
 					 		if($key=="Nama")
 					 		{

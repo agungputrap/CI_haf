@@ -76,12 +76,54 @@
 			$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
 			$query = $this->db->query($sql);
 		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_staff_tableStaff($id, $jenis_kelamin,$bagian, $gaji){
+			$sql = "update Staff set Jenis_Kelamin = " ."'". $jenis_kelamin ."',"."Bagian ='".$bagian."',"."Gaji_per_Bulan =".$gaji." where Id_Staff='".$id."'";
+			$query = $this->db->query($sql);
+		}
+
 		//mendapatkan id staff
 		function getStaffId($username)
 		{
 			$sql = "select staff.Id_Staff from staff, user where staff.Id_User = user.Id and user.Username ='".$username."'";
 			$query = $this->db->query($sql);
 			return $query->result_array();
+		}
+
+		//menghapus 1 row guru
+		function delete_guru($kode_guru)
+		{
+			$sql = "delete from guru where Kode_Guru ='".$kode_guru."'";
+			$query = $this->db->query($sql);
+		}
+
+		//mendapatkan detail profil guru dengan menggunakan kode_guru yang dapat diedit
+		function loadEditableDataGuru($kode)
+		{
+			$sql = "select * from guru left outer join user on (guru.id_user = user.Id) where Kode_Guru='".$kode."'";
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
+		//mendapatkan kode guru
+		function getGuruKode($username)
+		{
+			$sql = "select guru.Kode_Guru from guru, user where guru.Id_User = user.Id and user.Username ='".$username."'";
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_guru_tableUser($username, $pass,$alamat, $telp){
+			$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
+			$query = $this->db->query($sql);
+		}
+
+		//update alamat, password, dan no telp user
+		function update_profil_guru_tableGuru($kode, $jenis_kelamin,$mata_pelajaran, $program, $status_guru, $gaji){
+			$sql = "update guru set Jenis_Kelamin = " ."'". $jenis_kelamin ."',"."Mata_Pelajaran ='".$mata_pelajaran."',"."Program ='".$program."',Status_Guru='".$status_guru."',Gaji_per_Shift =".$gaji." where Kode_Guru='".$kode."'";
+			$query = $this->db->query($sql);
 		}
 	}
 
