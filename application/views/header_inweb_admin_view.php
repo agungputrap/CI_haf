@@ -43,8 +43,7 @@
   							</button>
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuTransaksi">
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="profil_siswa">Profil Siswa</a></li>
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="bayaran">Menambahkan Siswa</a></li>
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="cari_nama">Menghapus Siswa</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="menambahkan_siswa">Menambahkan Siswa</a></li>
   							</ul>
 						</div>
 					</div>
