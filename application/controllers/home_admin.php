@@ -14,7 +14,6 @@ class home_admin extends CI_Controller
 			$this->load->model('login_model');
 			$this->load->model('home_model');
 			$this->load->model('admin_model');
-			$this->load->model('staff_model');
 		}
 
 		public function home()
@@ -93,11 +92,13 @@ class home_admin extends CI_Controller
 			{
 				//simpan semua data yang penting dalam variabel temp
 				$temp_list_staff = $this->admin_model->get_list_staff();
+				$list_jadwal_staff = $this->admin_model->all_jadwal_staff();
+				
 
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
 
 				//simpan disuatu array yang memiliki key -> value
-				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda","data_list_staff"=> $temp_list_staff);
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda","data_list_staff"=> $temp_list_staff, "jadwal_staff"=>$list_jadwal_staff);
 				
 				$this->load->view("header_inweb_admin_view",$var_param);
 				$this->load->view("admin_profil_staff_view");
@@ -147,6 +148,28 @@ class home_admin extends CI_Controller
 			$this->admin_model->delete_staff($Id_Staff);
 			redirect("home_admin/profil_staff");
 			//$this->load->view("konfirmasi_staff_dihapus");
+		}
+
+		public function laporan_absen_staff($id){
+
+				$temp_hari_mulai = $this->admin_model->get_jadwal_staff($this->session->userdata('username'));
+				$temp_absensi_staff = $this->admin_model->get_absen_staff($temp_data_user[0]['Nama']);
+				$arrTgl = array();
+
+				for ($i=0; $i < count($temp_absensi_staff) ; $i++) { 
+					foreach ($temp_absensi_staff[$i] as $key => $value) {
+						if ($key == 'Tanggal') {
+							$arrTgl[$i] = $value;
+						}
+					}
+				}
+
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"absensi", "jadwal" => $temp_hari_mulai, "absen" => $temp_absensi_staff,
+					"tanggal" => $arrTgl);
+				$this->load->view("header_inweb_admin_view",$var_param);
+				$this->load->view('admin_laporan_absen_staff',$var_param);
+				$this->load->view("footer_view");
 		}
 
 		public function edit_data_staff($Id_Staff){
@@ -386,113 +409,6 @@ class home_admin extends CI_Controller
 					//$this->load->view("footer_view");
 				}
 			}
-		}
-
-		public function menambahkan_siswa()
-		{
-			if ($this->session->userdata('username') == NULL) 
-			{
-				redirect('login/index');
-			}
-			else
-			{
-				$program = array();
-				$pertahun = array();
-				$persemester = array();
-
-				$biaya = $this->staff_model->ambil_biaya();
-				for ($i=0; $i < count($biaya); $i++) { 
-					foreach ($biaya[$i] as $key => $value) {
-						if ($key == "Nama_Program") {
-							//ambil bagian jamnya saja lalu ubah kedalam int
-							$program[$i] = $value;
-						} elseif ($key == "Biaya_per_Tahun") {
-							$pertahun[$i] = $value;
-						} else {
-							$persemester[$i] = $value;
-						}		
-					}
-				}
-
-				$temp = $this->staff_model->loadData($this->session->userdata('username'));
-				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"pendaftaran", "data" => $temp, "program" => $program , "pertahun" => $pertahun
-					, "persemester" => $persemester );
-				$this->load->view('admin_pendaftaran_siswa',$var_param);	
-			}
-		
-		}
-
-		public function proc_daftar_siswa(){
-				$username = $this->input->post("txt_username");
-				$password = $this->input->post("txt_password");
-				$nama = $this->input->post("txt_nama");
-				$sex = $this->input->post("sex");
-				$alamat = $this->input->post("txt_alamat");
-				$telp = $this->input->post("txt_telp");
-				$staff = $this->input->post("txt_staff");
-				$program = $this->input->post("program");
-				$biaya = $this->input->post("biaya");
-				$asal = $this->input->post("txt_asal");
-
-				
-				$this->form_validation->set_rules("txt_username","Username","trim|required|min_length[5]|max_length[24]");
-				$this->form_validation->set_rules("txt_password","Password","trim|required|min_length[5]|max_length[24]");
-				$this->form_validation->set_rules("txt_nama","Name","trim|required|max_length[30]");
-				$this->form_validation->set_rules("txt_alamat","Address","trim|required");
-				$this->form_validation->set_rules("txt_telp","Telephone","trim|required");
-				$this->form_validation->set_rules("txt_asal","School","trim|required");
-				
-				if ($this->form_validation->run()==FALSE | empty($program) | empty($biaya)) {
-					$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Pengisian form ada yang kosong atau salah!!!</div>');
-					redirect("home_admin/menambahkan_siswa");
-				} else {
-
-					$index = 0;
-					$output = "";
-					$pembayaran = $this->staff_model->ambil_biaya();
-					for ($i=0; $i < count($pembayaran); $i++) { 
-						foreach ($pembayaran[$i] as $key => $value) {
-							if ($key == "Nama_Program") {
-								if ($value == $program) {
-									$index = $i;
-								}
-							} 	
-						}
-					}
-
-					$dur = "";
-
-					if ($biaya == "semester") {
-						$output = "Biaya_per_Semester";
-						$dur = "1 Semester";
-					}
-					else{
-						$output = "Biaya_per_Tahun";
-						$dur = "1 Tahun";
-					}
-
-
-					$id_biaya = $pembayaran[$index]['Id_Biaya'];
-
-					$usercheck = $this->staff_model->check_username($username);
-
-					if ($usercheck > 0) {
-						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Username sudah ada!!!</div>');
-						redirect("home_admin/menambahkan_siswa");
-					} else {
-						$this->staff_model->daftarkan_user($username,$password,$telp,$alamat,$dur);
-						$id_siswa = $this->staff_model->ambil_id_siswa($username);
-						$this->staff_model->daftarkan_siswa($id_siswa[0]['id'],$nama,$sex,$id_biaya,$asal,"Lunas",0);
-
-						$temp = $this->staff_model->loadData($this->session->userdata('username'));
-						$var_param= array("user"=>$this->session->userdata('username'),
-						"halaman"=>"pendaftaran", "data" => $temp, "biaya" => $pembayaran[$index][$output],
-						"id_user" => @$id_siswa[0]['id'], "nama" => $nama, "staff" => $staff, "type" => "Pendaftaran" );
-						$this->session->set_flashdata('msg', '<div class="alert alert-info text-center">Pendaftaran Berhasil</div>');
-						redirect("home_admin/menambahkan_siswa");
-					}
-				}
 		}
 	}
 ?>

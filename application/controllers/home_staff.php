@@ -90,7 +90,6 @@
 			}
 			else
 			{
-				$temp_data_user = $this->staff_model->loadData($this->session->userdata('username'));
 				$temp_hari_mulai = $this->staff_model->get_jadwal_staff($this->session->userdata('username'));
 				$temp_absensi_staff = $this->staff_model->get_absen_staff($temp_data_user[0]['Nama']);
 				$arrTgl = array();

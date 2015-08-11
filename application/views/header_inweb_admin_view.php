@@ -37,36 +37,23 @@
 					</div>
 					<div class="col-lg-2 col-sm-2">
 						<div class="dropdown">
-  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuTransaksi" data-toggle="dropdown" aria-expanded="true">
+  							<button class="btn btn-success dropdown-toggle" type="button" disabled="disabled" id="MenuTransaksi" data-toggle="dropdown" aria-expanded="true">
     						Siswa
     						<span class="caret"></span>
   							</button>
   							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuTransaksi">
     							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="profil_siswa">Profil Siswa</a></li>
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="menambahkan_siswa">Menambahkan Siswa</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="bayaran">Menambahkan Siswa</a></li>
+    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="cari_nama">Menghapus Siswa</a></li>
   							</ul>
 						</div>
 					</div>
 					<div class="col-lg-3 col-sm-2">
 						<div class="dropdown">
-  							<button class="btn btn-success dropdown-toggle" type="button" id="MenuKegiatan" data-toggle="dropdown" aria-expanded="true">
-    						Staff & Guru
-    						<span class="caret"></span>
-  							</button>
-  							<ul class="dropdown-menu" role="menu" aria-labelledby="MenuKegiatan">
-    							<li role="presentation"><a role="menutransaksi" tabindex="-1" href="profil_staff">Profil Staff</a></li>
-    							<li role="presentation"><a role="menuitem" tabindex="-1" href="profil_guru">Profil Guru</a></li>
-    							<li role="presentation"><a role="menuitem" tabindex="-1" href="see_jadwal">dummy menu #1</a></li>
-    							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">dummy menu #2</a></li>
-  							</ul>
+  							<a class='btn btn-success' href='profil_staff'>Ringkasan Absen</a>
 						</div>
 					</div>
 					<div class="col-lg-2 col-sm-2 col-lg-offset-0">
-						<?php if (strcmp($halaman,"absensi")== 0) {
-							echo "<a class='btn active btn-success' href='absensi'>Ringkasan Absen</a>";
-						} else {
-							echo "<a class='btn btn-success' href='absensi'>Ringkasan Absen</a>";
-						} ?>
 					</div>
 					<div class="col-lg-2 col-sm-2">
 					</div>

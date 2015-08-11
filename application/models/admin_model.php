@@ -160,6 +160,29 @@
 			$sql = "update siswa set Jenis_Kelamin = " ."'". $jenis_kelamin ."',"."Program =".$program.","."Kode_Kelas =".$kode_kelas." where No_SSC=".$kode;
 			$query = $this->db->query($sql);
 		}
+
+		function get_jadwal_staff($user)
+	{
+		$sql = "select A.Id_Tugas, A.Kode_Shift, A.Hari, A.Tanggal_Mulai from tugas_staff A, staff B , user C where A.Kode_Staff = B.Id_Staff and B.Id_User = C.Id and C.Username = '".$user."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	//mendapatkan jadwal absen siswa
+	function get_absen_staff($name)
+	{
+		$sql = "select * from absensi_staff where username ='".$name."'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+	function all_jadwal_staff(){
+		$sql = "select B.Nama, A.Kode_Shift, A.Hari, A.Tanggal_Mulai from tugas_staff A, staff B , user C where A.Kode_Staff = B.Id_Staff and B.Id_User = C.Id ORDER BY B.Nama";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+
+	}
+
 	}
 
 ?>

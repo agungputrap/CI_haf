@@ -5,7 +5,6 @@
 				<?php 
 	         	$attributes = array("class" => "form-horizontal", "id" => "daftarform", "name" => "daftarform");
 	         	echo form_open("home_staff/proc_daftar", $attributes);?>
-	         	<?php echo $this->session->flashdata('msg'); ?>
 	         	<fieldset>
 	               <legend>Pendaftaran Siswa</legend>
 	               <div class="form-group">
@@ -154,6 +153,7 @@
 	               </div>
 	         	</fieldset>
 	         	<?php echo form_close(); ?>
+	         	<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		</div>
 	</div>

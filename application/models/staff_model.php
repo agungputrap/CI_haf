@@ -38,14 +38,6 @@ class staff_model extends CI_Model{
 		return $query->result_array();
 	}
 
-	//loaddata untuk admin
-	function loadDataAdmin($user)
-	{
-		$sql = "select * from user where username='".$user."'";
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}
-
 	//ambil nama asli dari staff berdasarkan username
 	function ambil_id_staff($data){
 		$sql = "select nama from staff where id_user = (select id from user where username = ". "'".$data."')";
