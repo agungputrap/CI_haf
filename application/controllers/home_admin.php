@@ -2,6 +2,9 @@
 
 class home_admin extends CI_Controller
 	{
+		
+		
+
 		public function __construct()
 		{
 			parent::__construct();
@@ -92,13 +95,111 @@ class home_admin extends CI_Controller
 			{
 				//simpan semua data yang penting dalam variabel temp
 				$temp_list_staff = $this->admin_model->get_list_staff();
+
+
+				//Membuat Array Kosong yang akan digunakan untuk tabel jadwal
+				//---start of code---
+				$tabel_jadwal_data = array();
+
+				for ($i=0; $i < count($temp_list_staff) ; $i++) { 
+					$tabel_jadwal_data[$i]['Id'] = $temp_list_staff[$i]['Id_Staff'];
+					$tabel_jadwal_data[$i]['Nama'] = $temp_list_staff[$i]['Nama'];
+					$tabel_jadwal_data[$i]['Monday'] = '';
+					$tabel_jadwal_data[$i]['Tuesday'] = '';
+					$tabel_jadwal_data[$i]['Wednesday'] = '';
+					$tabel_jadwal_data[$i]['Thursday'] = '';
+					$tabel_jadwal_data[$i]['Friday'] = '';
+					$tabel_jadwal_data[$i]['Saturday'] = '';
+					$tabel_jadwal_data[$i]['Sunday'] = '';
+					$tabel_jadwal_data[$i]['Berlaku'] = '';
+				}
+
+				//---end of code---
+
 				$list_jadwal_staff = $this->admin_model->all_jadwal_staff();
 				
+				//Membuat Tampilan Tabel Jadwal Staff Menjadi Lebih Baik
+				//--start of code---
 
+				for ($i=0; $i < count($list_jadwal_staff); $i++) { 
+					$Name = $list_jadwal_staff[$i]['Nama'];
+					$Shift = $list_jadwal_staff[$i]['Kode_Shift'];
+					$Workday = $list_jadwal_staff[$i]['Hari'];
+					$TabelDataIndex = -1;
+
+					for ($j=0; $j < count($tabel_jadwal_data); $j++) { 
+						if ($Name == $tabel_jadwal_data[$j]['Nama']) {
+							$TabelDataIndex = $j;
+							break;
+						}
+					}
+					if ($TabelDataIndex > -1) {
+						if ($Workday == 'Monday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Monday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Monday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Tuesday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Tuesday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Tuesday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Wednesday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Wednesday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Wednesday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Thursday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Thursday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Thursday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Friday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Friday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Friday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Saturday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Saturday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Saturday'] = "S02";
+							}
+						}
+						elseif ($Workday == 'Sunday') {
+							if ($Shift == 'S01') {
+								$tabel_jadwal_data[$TabelDataIndex]['Sunday'] = "S01/S03";
+							}
+							elseif ($Shift == 'S02') {
+								$tabel_jadwal_data[$TabelDataIndex]['Sunday'] = "S02";
+							}
+						}
+					}
+					$tabel_jadwal_data[$TabelDataIndex]['Berlaku'] = $list_jadwal_staff[$i]['Tanggal_Mulai'];
+					
+				}
+
+				//---end of code---
 				//gunakan tanda @ supaya tidak ada warning tentang undefined offset
 
 				//simpan disuatu array yang memiliki key -> value
-				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda","data_list_staff"=> $temp_list_staff, "jadwal_staff"=>$list_jadwal_staff);
+				$var_param= array("user"=>$this->session->userdata('username'),"halaman"=>"beranda","data_list_staff"=> $temp_list_staff, "jadwal_staff"=>$list_jadwal_staff, "tabel"=>$tabel_jadwal_data);
 				
 				$this->load->view("header_inweb_admin_view",$var_param);
 				$this->load->view("admin_profil_staff_view");
@@ -246,6 +347,70 @@ class home_admin extends CI_Controller
 				}
 			}
 		}
+
+
+		public function edit_jadwal_staff($Id_Staff){
+			if ($this->session->userdata('username') == NULL) 
+			{
+				redirect('login/index');
+			}
+			else
+			{
+				date_default_timezone_set('Asia/Jakarta');
+				$date = getdate();
+				$temp_data_user = $this->admin_model->loadEditableDataStaff($Id_Staff);
+				$temp_jadwal_staff = $this->admin_model->loadEditableJadwalStaff($Id_Staff);
+				
+				$hariIndo = array(array("Senin",'Monday'),array("Selasa",'Tuesday'),array("Rabu",'Wednesday'),array("Kamis",'Thursday'),array("Jumat",'Friday'),array("Sabtu",'Saturday'),array("Minggu",'Sunday'));
+				$var_param= array("user"=>$this->session->userdata('username'),
+					"halaman"=>"rubah_profil","data" =>$temp_data_user,"jadwal"=>$temp_jadwal_staff,"tanggal"=>$date,"hari"=>$hariIndo);
+
+
+				$this->load->view('rubah_jadwal_staff_view',$var_param);
+				$this->load->view("footer_view");
+			}
+		}
+
+		public function proc_rubah_jadwal_staff($id){
+
+			if ($this->input->post('btn_rubah')) {
+				$monday = $this->input->post("monday");
+				$tuesday = $this->input->post("tuesday");
+				$wednesday = $this->input->post("wednesday");
+				$thursday = $this->input->post("thursday");
+				$friday = $this->input->post("friday");
+				$saturday = $this->input->post("saturday");
+				$sunday = $this->input->post("sunday");
+
+				$formData = array($monday,$tuesday,$wednesday,$thursday,$friday,$saturday,$sunday);
+				$dayHelper = array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+
+				//clear jadwal staff id ini, lalu masukkan data baru
+				$clear_jadwal = $this->admin_model->clear_jadwal_staff($id);
+				
+				for($index = 0; $index < count($formData); $index++) {
+					if($formData[$index] == 1){
+						$insertShift1 = $this->admin_model->ins_tugas_staff($id,'S01',$dayHelper[$index]);
+						$insertShift3 = $this->admin_model->ins_tugas_staff($id,'S03',$dayHelper[$index]);
+
+					}
+					elseif ($formData[$index] == 2) {
+						$insertShift3 = $this->admin_model->ins_tugas_staff($id,'S02',$dayHelper[$index]);
+					}
+				}
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Jadwal Telah Diubah</div>');
+				redirect("home_admin/profil_staff");
+
+
+
+			} elseif($this->input->post('btn_cancel')) {
+				$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Jadwal Gagal Diubah</div>');
+				redirect("home_admin/profil_staff");
+			}
+			
+
+		}
+
 		public function hapus_guru($Kode_Guru){
 			$this->admin_model->delete_guru($Kode_Guru);
 			redirect("home_admin/profil_guru");

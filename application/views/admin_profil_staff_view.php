@@ -7,6 +7,7 @@
 		</div>
 	-->
 		<div class="col-md-8">
+			<?php echo $this->session->flashdata('msg'); ?>
 			<h3>Jadwal Staff</h3>
 				<table class='table table-striped'>
 			<tr>
@@ -19,100 +20,23 @@
 				<td align="center"><strong>Sabtu</strong></td>
 				<td align="center"><strong>Minggu</strong></td>
 				<td align="center"><strong>Tanggal Berlaku</strong></td>
-
 			</tr>
 				<?php
-					foreach ($jadwal_staff as $list) {
+					foreach ($tabel as $jadwal) {
+						$temp_id = $jadwal['Id'];
 						echo "<tr>";
-						echo "<td align='center'>".$list['Nama']."</td>";
-
-					 	foreach ($list as $key => $value) {
-					 		if ($key = 'Hari') {
-					 			if ($value='Monday') {
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Tuesday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Wednesday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Thursday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Friday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Saturday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 			elseif ($value='Sunday') {
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'>".$list['Kode_Shift']."</td>";
-					 				break;
-					 			}
-					 			else{
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				echo "<td align='center'></td>";
-					 				break;
-					 			}
-					 		}
-					 	}
-					 	echo "<td align='center'>".$list['Tanggal_Mulai']."</td>";
-					 	echo "</tr>";
-					 } 
+						echo "<td align='center'>".$jadwal['Nama']."</td>";
+						echo "<td align='center'>".$jadwal['Monday']."</td>";
+						echo "<td align='center'>".$jadwal['Tuesday']."</td>";
+						echo "<td align='center'>".$jadwal['Wednesday']."</td>";
+						echo "<td align='center'>".$jadwal['Thursday']."</td>";
+						echo "<td align='center'>".$jadwal['Friday']."</td>";
+						echo "<td align='center'>".$jadwal['Saturday']."</td>";
+						echo "<td align='center'>".$jadwal['Sunday']."</td>";
+						echo "<td align='center'>".$jadwal['Berlaku']."</td>";
+						echo "<td align='center'><a class='btn btn-info' href='edit_jadwal_staff/$temp_id'>Edit</a></td>";
+						echo "</tr>";
+					}
 				?>
 			</table>
 			<h5>Keterangan</h5>

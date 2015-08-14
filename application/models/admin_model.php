@@ -71,6 +71,13 @@
 			return $query->result_array();
 		}
 
+		function loadEditableJadwalStaff($id)
+		{
+			$sql = "select * from tugas_staff where Kode_Staff=".$id;
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
+
 		//update alamat, password, dan no telp user
 		function update_profil_staff_tableUser($username, $pass,$alamat, $telp){
 			$sql = "update user set Password = " ."'". $pass ."',"."Alamat ='".$alamat."',"."No_Telp ='".$telp."'"." where Username='".$username."'";
@@ -181,6 +188,17 @@
 		$query = $this->db->query($sql);
 		return $query->result_array();
 
+	}
+
+
+	function clear_jadwal_staff($id){
+	$sql = "delete from tugas_staff where Kode_staff = '".$id."'";
+	$query = $this->db->query($sql);
+	}
+
+	function ins_tugas_staff($id,$shift,$day){
+	$sql = "insert into tugas_staff(Id_Tugas, Kode_Staff, Kode_Shift, Hari, Tanggal_Mulai) values ('',". "'".$id."',"."'".$shift."'".","."'".$day."'".",current_date)";
+	$query = $this->db->query($sql);
 	}
 
 	}
