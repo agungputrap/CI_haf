@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2015 at 04:23 PM
+-- Generation Time: Aug 14, 2015 at 03:41 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -85,6 +85,21 @@ INSERT INTO `absensi_staff` (`Id_Absen`, `Kode_Tugas`, `username`, `Tanggal`, `W
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `absensi_staff_baru`
+--
+
+CREATE TABLE IF NOT EXISTS `absensi_staff_baru` (
+`Id_Absen` int(11) NOT NULL,
+  `Kode_Tugas` int(11) NOT NULL,
+  `Nama` varchar(32) NOT NULL,
+  `Tanggal` date NOT NULL,
+  `Status` varchar(10) NOT NULL,
+  `Status2` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `biaya_ssc`
 --
 
@@ -131,9 +146,9 @@ CREATE TABLE IF NOT EXISTS `guru` (
 INSERT INTO `guru` (`Id_User`, `Kode_Guru`, `Nama`, `Jenis_Kelamin`, `Mata_Pelajaran`, `Program`, `Status_Guru`, `Gaji_per_Shift`) VALUES
 (8, 'DA', 'Dudung A. S.', 'Laki - Laki', 'Fisika', 'SMA', 'Tetap', 80000),
 (9, 'AS', 'Asep Rustiawan', 'Laki - Laki', 'Matematika', 'SMA', 'Tetap', 80000),
-(49, 'CR', 'Citra Resmi', 'Perempuan', 'B. Indonesia', 'SMP', 'Aktif', 60000),
+(49, 'CR', 'Citra Resmi', 'Perempuan', 'Indonesia', 'SMP', 'Aktif', 60000),
 (50, 'YS', 'Yudi Setiawan', 'Laki - Laki', 'Kimia', 'SMA', 'Aktif', 80000),
-(51, 'AD', 'Anita D. P.', 'Perempuan', 'B. Inggris', 'SMP/SMA', 'Aktif', 60000),
+(51, 'AD', 'Anita D. P.', 'Perempuan', 'Inggris', 'SMP/SMA', 'Aktif', 60000),
 (52, 'FY', 'Fityan', 'Laki - Laki', 'Biologi', 'SMP/SMA', 'Aktif', 75000),
 (53, 'AL', 'Ari Lestari', 'Perempuan', 'Fisika', 'SMP', 'Aktif', 60000),
 (54, 'SY', 'Syamsudin', 'Laki - Laki', 'Kimia', 'SMP/SMA', 'Aktif', 80000),
@@ -214,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `pembayaran` (
   `Nominal` int(8) NOT NULL,
   `Tanggal` date NOT NULL,
   `Waktu` time NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pembayaran`
@@ -222,7 +237,9 @@ CREATE TABLE IF NOT EXISTS `pembayaran` (
 
 INSERT INTO `pembayaran` (`Kode_Pembayaran`, `Tipe_Transaksi`, `Atas_Nama`, `Staff_yang_menerima`, `Nominal`, `Tanggal`, `Waktu`) VALUES
 (9, 'Pendaftaran', 'Rafif', 'Saeful Bahri', 7000000, '2015-02-06', '14:02:01'),
-(10, 'Pendaftaran', 'Rafif', 'Dadang Reza', 1000000, '2015-02-06', '17:14:55');
+(10, 'Pendaftaran', 'Rafif', 'Dadang Reza', 1000000, '2015-02-06', '17:14:55'),
+(11, 'Pendaftaran', 'Rusev', 'Saeful Bahri', 4000000, '2015-02-26', '23:45:28'),
+(12, 'Pendaftaran', 'asdasdasd', 'Saeful Bahri', 3000000, '2015-02-28', '21:20:39');
 
 -- --------------------------------------------------------
 
@@ -241,10 +258,12 @@ CREATE TABLE IF NOT EXISTS `shift_ssc` (
 --
 
 INSERT INTO `shift_ssc` (`Kode_Shift`, `Waktu_Mulai`, `Waktu_Berakhir`) VALUES
+('', '00:00:00', '00:00:00'),
 ('B01', '14:30:00', '15:45:00'),
 ('B02', '19:30:00', '20:30:00'),
 ('S01', '09:00:00', '12:00:00'),
-('S02', '13:00:00', '17:30:00');
+('S02', '11:00:00', '17:30:00'),
+('S03', '13:00:00', '17:30:00');
 
 -- --------------------------------------------------------
 
@@ -258,8 +277,8 @@ CREATE TABLE IF NOT EXISTS `siswa` (
   `Nama` varchar(30) NOT NULL,
   `Jenis_Kelamin` varchar(12) NOT NULL,
   `Program` int(2) NOT NULL,
-  `Asal Sekolah` varchar(32) NOT NULL,
-  `Kode_Kelas` int(5) DEFAULT NULL,
+  `Asal_Sekolah` varchar(32) NOT NULL,
+  `Kode_Kelas` int(5) NOT NULL DEFAULT '0',
   `Status_Pembayaran` varchar(16) NOT NULL,
   `Sisa_Pembayaran` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -268,12 +287,14 @@ CREATE TABLE IF NOT EXISTS `siswa` (
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`Id_User`, `No_SSC`, `Nama`, `Jenis_Kelamin`, `Program`, `Asal Sekolah`, `Kode_Kelas`, `Status_Pembayaran`, `Sisa_Pembayaran`) VALUES
+INSERT INTO `siswa` (`Id_User`, `No_SSC`, `Nama`, `Jenis_Kelamin`, `Program`, `Asal_Sekolah`, `Kode_Kelas`, `Status_Pembayaran`, `Sisa_Pembayaran`) VALUES
 (2, 80000001, 'Waliyyin Razan Qanit', 'Laki - Laki', 1, 'SMA 1 Garut', 801, 'Lunas', 0),
 (3, 80000002, 'Budi Anduk', 'Laki - Laki', 1, 'SMA 1 Garut', 801, 'Lunas', 0),
 (4, 80000003, 'Vierra Citra', 'Perempuan', 2, 'SMA 1 Garut', 802, 'Lunas', 0),
 (5, 80000004, 'Dinda Putri Mutiara', 'Perempuan', 2, 'SMA 11 Garut', 802, 'Lunas', 0),
-(28, 0, 'Rafif', 'Laki Laki', 1, 'SMA 6 Garut', 0, 'Lunas', 0);
+(28, 0, 'Rafif', 'Laki Laki', 1, 'SMA 6 Garut', 0, 'Lunas', 0),
+(57, 0, 'Rusev', 'Laki Laki', 2, 'Russia 1', 0, 'Belum Lunas', 3000000),
+(60, 0, 'asdasdasd', 'Laki Laki', 2, 'SMA Odong', 0, 'Belum Lunas', 1000000);
 
 -- --------------------------------------------------------
 
@@ -308,18 +329,56 @@ CREATE TABLE IF NOT EXISTS `tugas_staff` (
 `Id_Tugas` int(2) NOT NULL,
   `Kode_Staff` int(8) NOT NULL,
   `Kode_Shift` char(4) NOT NULL,
-  `Hari` varchar(8) NOT NULL,
+  `Hari` varchar(12) NOT NULL,
   `Tanggal_Mulai` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tugas_staff`
 --
 
 INSERT INTO `tugas_staff` (`Id_Tugas`, `Kode_Staff`, `Kode_Shift`, `Hari`, `Tanggal_Mulai`) VALUES
-(1, 11000001, 'S01', 'Monday', '2015-01-05'),
-(2, 11000001, 'S02', 'Monday', '2015-01-05'),
-(3, 11000002, 'S02', 'Saturday', '2015-01-10');
+(5, 11000002, 'S02', 'Monday', '2015-08-10'),
+(13, 11000002, 'S01', 'Tuesday', '2015-08-13'),
+(14, 11000002, 'S03', 'Tuesday', '2015-08-13'),
+(15, 11000002, 'S02', 'Wednesday', '2015-08-13'),
+(16, 11000002, 'S01', 'Thursday', '2015-08-13'),
+(17, 11000002, 'S03', 'Thursday', '2015-08-13'),
+(18, 11000002, 'S02', 'Friday', '2015-08-13'),
+(19, 11000002, 'S01', 'Saturday', '2015-08-13'),
+(20, 11000002, 'S03', 'Saturday', '2015-08-13'),
+(43, 11000001, 'S01', 'Monday', '2015-08-14'),
+(44, 11000001, 'S03', 'Monday', '2015-08-14'),
+(45, 11000001, 'S01', 'Tuesday', '2015-08-14'),
+(46, 11000001, 'S03', 'Tuesday', '2015-08-14'),
+(47, 11000001, 'S01', 'Wednesday', '2015-08-14'),
+(48, 11000001, 'S03', 'Wednesday', '2015-08-14'),
+(49, 11000001, 'S02', 'Thursday', '2015-08-14'),
+(50, 11000001, 'S02', 'Friday', '2015-08-14'),
+(51, 11000001, 'S02', 'Saturday', '2015-08-14'),
+(52, 11000001, 'S02', 'Sunday', '2015-08-14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tugas_staff_baru`
+--
+
+CREATE TABLE IF NOT EXISTS `tugas_staff_baru` (
+`Id_Tugas` int(8) NOT NULL,
+  `User_Staff` varchar(16) NOT NULL,
+  `Hari` varchar(12) NOT NULL,
+  `Tanggal_Mulai` date NOT NULL,
+  `Jam_Masuk` time NOT NULL,
+  `Jam_Keluar` time NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tugas_staff_baru`
+--
+
+INSERT INTO `tugas_staff_baru` (`Id_Tugas`, `User_Staff`, `Hari`, `Tanggal_Mulai`, `Jam_Masuk`, `Jam_Keluar`) VALUES
+(1, 'Dadang', 'Saturday', '2015-07-25', '18:00:00', '20:00:00');
 
 -- --------------------------------------------------------
 
@@ -336,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Role` varchar(8) NOT NULL DEFAULT 'Siswa',
   `Status_Akun` varchar(12) NOT NULL DEFAULT 'Aktif',
   `Durasi_Akun` varchar(16) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -349,7 +408,7 @@ INSERT INTO `user` (`Id`, `Username`, `Password`, `Alamat`, `No_Telp`, `Role`, `
 (4, 'Vierra', 'vierra', 'Perum Pertamina, Jalan Terusan Pembangunan', '0262223765', 'Siswa', 'Aktif', '1 Tahun'),
 (5, 'Dinda', 'Dinda', 'Sukaregang, Garut', '02622245678', 'Siswa', 'Aktif', '1 Tahun'),
 (6, 'Epung', 'epung', 'Jalan leuwidaun, tarogong kidul', '0262233386', 'Staff', 'Aktif', '1 Tahun'),
-(7, 'Dadang', 'dadang', 'Sukaregang, Garut', '0262231311', 'Staff', 'Aktif', '1 Tahun'),
+(7, 'Dadang', 'dada', 'Sukaregang', '08123232323', 'Staff', 'Aktif', '1 Tahun'),
 (8, 'Dudung', 'dudung', 'Jalan Gordah, Perum Gordah', '081311878424', 'Guru', 'Aktif', '1 Tahun'),
 (9, 'Asep', 'asep', 'Jalan Babakan Selaawi, Perum GMI KAV B 21', '02622247030', 'Guru', 'Aktif', '1 Tahun'),
 (28, 'rafif', 'rafif', 'garut', '0811567323', 'Siswa', 'Aktif', '1 Tahun'),
@@ -380,7 +439,9 @@ INSERT INTO `user` (`Id`, `Username`, `Password`, `Alamat`, `No_Telp`, `Role`, `
 (53, 'ari.lestari', 'ariles', 'rancabango, garut', '0262758433', 'Guru', 'Aktif', '1 Tahun'),
 (54, 'syamsudin', 'syamsu', 'jalan suci, garut', '08560008123', 'Guru', 'Aktif', '1 Tahun'),
 (55, 'makmur.sunarya', 'makmur', 'Jalan cikuray, garut', '0262733123', 'Guru', 'Aktif', '1 Tahun'),
-(56, 'atid', 'atidd', 'Perum Paseban, Garut', '0859123665', 'Guru', 'Aktif', '1 Tahun');
+(56, 'atid', 'atidd', 'Perum Paseban, Garut', '0859123665', 'Guru', 'Aktif', '1 Tahun'),
+(57, 'Rusev', 'rusev', '123456789', 'Russia', 'Siswa', 'Aktif', '1 Tahun'),
+(60, 'asdfghjkl', 'asdfghjkl', '234567890', 'asdfghjkl', 'Siswa', 'Aktif', '1 Semester');
 
 --
 -- Indexes for dumped tables
@@ -403,6 +464,12 @@ ALTER TABLE `absensi_siswa`
 --
 ALTER TABLE `absensi_staff`
  ADD PRIMARY KEY (`Id_Absen`,`Kode_Tugas`,`username`);
+
+--
+-- Indexes for table `absensi_staff_baru`
+--
+ALTER TABLE `absensi_staff_baru`
+ ADD PRIMARY KEY (`Id_Absen`);
 
 --
 -- Indexes for table `biaya_ssc`
@@ -450,7 +517,7 @@ ALTER TABLE `shift_ssc`
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
- ADD PRIMARY KEY (`Id_User`);
+ ADD PRIMARY KEY (`Id_User`,`Program`,`Kode_Kelas`), ADD KEY `Program` (`Program`);
 
 --
 -- Indexes for table `staff`
@@ -462,6 +529,12 @@ ALTER TABLE `staff`
 -- Indexes for table `tugas_staff`
 --
 ALTER TABLE `tugas_staff`
+ ADD PRIMARY KEY (`Id_Tugas`,`Kode_Staff`);
+
+--
+-- Indexes for table `tugas_staff_baru`
+--
+ALTER TABLE `tugas_staff_baru`
  ADD PRIMARY KEY (`Id_Tugas`);
 
 --
@@ -490,6 +563,11 @@ MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 ALTER TABLE `absensi_staff`
 MODIFY `Id_Absen` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
+-- AUTO_INCREMENT for table `absensi_staff_baru`
+--
+ALTER TABLE `absensi_staff_baru`
+MODIFY `Id_Absen` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `biaya_ssc`
 --
 ALTER TABLE `biaya_ssc`
@@ -508,17 +586,22 @@ MODIFY `Id_Kas` int(10) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-MODIFY `Kode_Pembayaran` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `Kode_Pembayaran` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tugas_staff`
 --
 ALTER TABLE `tugas_staff`
-MODIFY `Id_Tugas` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `Id_Tugas` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT for table `tugas_staff_baru`
+--
+ALTER TABLE `tugas_staff_baru`
+MODIFY `Id_Tugas` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `Id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
+MODIFY `Id` int(8) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
 --
 -- Constraints for dumped tables
 --
@@ -540,7 +623,8 @@ ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`Kode_Shift`) REFERENCES `shift_ssc`
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`Id_User`) REFERENCES `user` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`Id_User`) REFERENCES `user` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `siswa_ibfk_2` FOREIGN KEY (`Program`) REFERENCES `biaya_ssc` (`Id_Biaya`);
 
 --
 -- Constraints for table `staff`
