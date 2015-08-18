@@ -5,7 +5,7 @@
          	<div class="col-lg-4 col-sm-4 well">
 	         	<?php 
 	         	$attributes = array("class" => "form-horizontal", "id" => "absenform", "name" => "absenform");
-	         	echo form_open("absen/index", $attributes);?>
+	         	echo form_open("absen/proc_absen", $attributes);?>
 	         	<fieldset>
 	               <legend>ISI ABSENSI</legend>
 	               <div class="form-group">

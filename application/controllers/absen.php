@@ -16,7 +16,8 @@ class absen extends CI_Controller
 	}
 
 	public function index(){
-		$username = $this->input->post("txt_username");
+
+		
 
 		//Mendapatkan Waktu yang nantinya digunakan untuk menentukan apakah yang mengabsen telat apa tidak
 		date_default_timezone_set('Asia/Jakarta');
@@ -38,17 +39,25 @@ class absen extends CI_Controller
 		$this->form_validation->set_rules("txt_username","Username","trim|required");
 
 		$this->load->view("header_view",$ready);
+		$this->load->view("absen_view");
+		$this->load->view("footer_view");
 		//tampilin
-		if ($this->form_validation->run()==FALSE)
-		{
-			//validation fails
-			$this->load->view("absen_view");
-			$this->load->view("footer_view");
-		}
-		else 
-		{
-			if($this->input->post("btn_absen")=="Absen")
+	}
+
+	public function proc_absen(){
+		if($this->input->post("btn_absen")=="Absen")
 			{
+				//Mendapatkan Waktu yang nantinya digunakan untuk menentukan apakah yang mengabsen telat apa tidak
+				date_default_timezone_set('Asia/Jakarta');
+				$date = getdate();
+				$day = $date['weekday'];
+				$month = $date['month'];
+				$year = $date['year'];
+				$hours = $date['hours'];
+				$minutes = $date['minutes'];
+				$seconds = $date['seconds'];
+
+				$username = $this->input->post("txt_username");
 				//pastikan usernya ada dan kalo ada namanya langsung diambil simpan di variabel nama
 				$usr_result = $this->absen_model->check_username($username);
 				$usr_name = $this->absen_model->ambil_nama($username);
@@ -100,8 +109,8 @@ class absen extends CI_Controller
 						$breaker = true;
 
 						//menentukan index array yang menyimpan data tentang shift yang sedang berlangsung ketika staff mengabsen
-						while ($breaker) {
-							if ($dec_time[$index] <= $hoursnow) {
+						while ($breaker && $index == 2) {
+							if ($dec_time[$index] - $hoursnow >= -1 && $dec_time[$index] - $hoursnow < 2) {
 								$breaker = false;
 							}
 							$index = $index + 1;
@@ -112,8 +121,19 @@ class absen extends CI_Controller
 
 						//Jika staff tidak mempunyai tugas di hari dan/atau waktu pada ia mengabsen, maka ada error message
 						if (count($query_tugas) == 0) {
-							$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Bukan shiftnya pak!!!</div>');
-							redirect('absen/index');
+							if ($index == 0) {
+								$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">1</div>');
+								redirect('absen/index');
+							}
+							elseif ($index == 2) {
+								$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">2</div>');
+								redirect('absen/index');
+							}
+							elseif ($index == 3) {
+								$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">3</div>');
+								redirect('absen/index');
+							}
+
 						} else {
 								
 								//simpan row dari query_tugas dalam suatu variabel temp					
@@ -129,7 +149,7 @@ class absen extends CI_Controller
 
 									//ambil bagian menitnya saja lalu ubah kedalam integer
 									$var2 = (int)substr($var1["waktu_mulai"],3,2);
-									if ($var2 > $minutesnow) {
+									if ($minutesnow - $var2 > 10) {
 										//Jika nilai jamnya = nilai jam shift, namun menitnya lebih dari menit shift nya, maka status akan menjadi "Terlambat"
 										$status = "Terlambat";
 									}
@@ -178,13 +198,9 @@ class absen extends CI_Controller
 						$this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">Salah username</div>');
 						redirect('absen/index');
 					}
-			}
-			else
-			{
-				redirect('absen/index');
-			}
 		}
 	}
+
 	public function berhasil(){
 		$this->load->view('header_view');
 		$this->load->view('absen_berhasil');

@@ -90,8 +90,9 @@
 			}
 			else
 			{
+				$temp = $this->staff_model->loadData($this->session->userdata('username'));
 				$temp_hari_mulai = $this->staff_model->get_jadwal_staff($this->session->userdata('username'));
-				$temp_absensi_staff = $this->staff_model->get_absen_staff($temp_data_user[0]['Nama']);
+				$temp_absensi_staff = $this->staff_model->get_absen_staff($temp[0]['Nama']);
 				$arrTgl = array();
 
 				for ($i=0; $i < count($temp_absensi_staff) ; $i++) { 
@@ -103,7 +104,7 @@
 				}
 
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi", "data" => $temp_data_user, "jadwal" => $temp_hari_mulai, "absen" => $temp_absensi_staff,
+					"halaman"=>"absensi", "data" => $temp, "jadwal" => $temp_hari_mulai, "absen" => $temp_absensi_staff,
 					"tanggal" => $arrTgl);
 				$this->load->view("header_staffweb_view",$var_param);
 				$this->load->view('absensi_staff',$var_param);

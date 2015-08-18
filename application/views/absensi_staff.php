@@ -2,9 +2,18 @@
 	<div class="row">
 		<div class="col-md-4 well">
 			<h1 align="center"> <?php echo ($data[0]['Nama']) ?> </h1>
-			<img src="<?php echo base_url("assets/images/bonie.jpg"); ?>" class="img-responsive img-haf" alt="Responsive image">
 		</div>
 		<div class="col-md-6 col-md-offset-1">
+		<div class='col-md-12'>
+		<table class='table table-striped'>
+		<tr>
+		<td>No.</td>
+		<td>tanggal</td>
+		<td>Hari</td>
+		<td>Status masuk
+		<td>Kode Shift</td>
+		<td>Waktu Mengabsen</td>
+		</tr>
 		<?php 
 		date_default_timezone_set('Asia/Jakarta');
 		//start date
@@ -13,16 +22,7 @@
 		$end_date = getdate();
 
 		//membuat tabel
-		echo "<div class='col-md-12'>";
-		echo "<table class='table table-striped'>";
-		echo "<tr>";
-		echo "<td>No.</td>";
-		echo "<td>tanggal</td>";
-		echo "<td>Hari</td>";
-		echo "<td>Status masuk</td>";
-		echo "<td>Kode Shift</td>";
-		echo "<td>Waktu Mengabsen</td>";
-		echo "</tr>";
+
 		$no_tabel_row=1;
 		$array_tidak_hadir = array();
 		$array_kode = array();
@@ -96,7 +96,7 @@
 								echo "</tr>";
 								++$no_tabel_row;
 								array_push($array_kode, $check);
-								array_push($array_kode, $absen[$i]['Kode_Tugas']);
+								array_push($array_kode, $absen[$i]['Id_Absen']);
 							}
 						}
 						else 
@@ -145,11 +145,11 @@
 					}
 				}
 			}
-
+			
 			$date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
- 			
  		}
 		?>
+		</table>
 		</div>
 	</div>
 </div>
