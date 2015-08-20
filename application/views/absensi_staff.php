@@ -10,7 +10,7 @@
 		<td>No.</td>
 		<td>tanggal</td>
 		<td>Hari</td>
-		<td>Status masuk
+		<td>Status masuk</td>
 		<td>Kode Shift</td>
 		<td>Waktu Mengabsen</td>
 		</tr>

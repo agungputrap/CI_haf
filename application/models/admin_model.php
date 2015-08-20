@@ -175,10 +175,9 @@
 		return $query->result_array();
 	}
 
-	//mendapatkan jadwal absen siswa
 	function get_absen_staff($name)
 	{
-		$sql = "select * from absensi_staff where username ='".$name."'";
+		$sql = "select * from absensi_staff left outer join tugas_staff on (absensi_staff.kode_tugas = tugas_staff.Id_tugas) where absensi_staff.username ='".$name."'";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -200,6 +199,8 @@
 	$sql = "insert into tugas_staff(Id_Tugas, Kode_Staff, Kode_Shift, Hari, Tanggal_Mulai) values ('',". "'".$id."',"."'".$shift."'".","."'".$day."'".",current_date)";
 	$query = $this->db->query($sql);
 	}
+
+
 
 	}
 

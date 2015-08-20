@@ -251,26 +251,28 @@ class home_admin extends CI_Controller
 			//$this->load->view("konfirmasi_staff_dihapus");
 		}
 
-		public function laporan_absen_staff($id){
+		public function laporan_absen_staff($Id_Staff){
+				$temp_data_user = $this->admin_model->loadEditableDataStaff($Id_Staff);
+				$temp_jadwal_staff = $this->admin_model->loadEditableJadwalStaff($Id_Staff);
+				$absen = $this->admin_model->get_absen_staff($temp_data_user[0]['Nama']);
+				$hariIndo = array(array("Senin",'Monday'),array("Selasa",'Tuesday'),array("Rabu",'Wednesday'),array("Kamis",'Thursday'),array("Jumat",'Friday'),array("Sabtu",'Saturday'),array("Minggu",'Sunday'));
 
-				$temp_hari_mulai = $this->admin_model->get_jadwal_staff($this->session->userdata('username'));
-				$temp_absensi_staff = $this->admin_model->get_absen_staff($temp_data_user[0]['Nama']);
+
+				//var_dump($temp_jadwal_staff);
 				$arrTgl = array();
-
-				for ($i=0; $i < count($temp_absensi_staff) ; $i++) { 
-					foreach ($temp_absensi_staff[$i] as $key => $value) {
-						if ($key == 'Tanggal') {
-							$arrTgl[$i] = $value;
-						}
-					}
-				}
+				$arrTugasStaff = array();
 
 				$var_param= array("user"=>$this->session->userdata('username'),
-					"halaman"=>"absensi", "jadwal" => $temp_hari_mulai, "absen" => $temp_absensi_staff,
-					"tanggal" => $arrTgl);
-				$this->load->view("header_inweb_admin_view",$var_param);
+					"halaman"=>"absensi","absen"=> $absen, "data" =>$temp_data_user,"jadwal"=>$temp_jadwal_staff,"hari"=>$hariIndo);
+
 				$this->load->view('admin_laporan_absen_staff',$var_param);
 				$this->load->view("footer_view");
+		}
+
+		public function proc_laporan_absen(){
+			if($this->input->post('btn_cancel')) {
+				redirect("home_admin/profil_staff");
+			}
 		}
 
 		public function edit_data_staff($Id_Staff){

@@ -46,40 +46,38 @@
 			<br>
 			<br>
 			<br>
-			<h3>Profil Staff</h3>
+			<h3>Ringkasan Absen</h3>
 			<table class="table">
 				<tr>
-					<td align="center"><strong>Kode Staff</strong></td>
 					<td align="center"><strong>Nama</strong></td>
 					<td align="center"><strong>Jenis Kelamin</strong></td>
-					<td align="center"><strong>Bagian</strong></td>
-					<td align="center" colspan="3"><strong>Menu</strong></td>
+					<td align="center" colspan="2"><strong>Menu</strong></td>
 				</tr>
 				<?php
 					foreach ($data_list_staff as $list) {
 						echo "<tr>";
-						$temp_nomor_staff = "";
+						$temp_nama_staff = '';
+						$temp_id_staff = '';
 					 	foreach ($list as $key => $value) {
 					 		if($key=="Nama")
 					 		{
 					 			echo "<td align='center'><a href='profil_staff_detail/$value'>".$value."</a></td>";
+					 			$temp_nama_staff = $value;
 					 		}
 					 		elseif ($key == "Id_Staff")
 					 		{
-					 			$temp_nomor_staff = $value;
-					 			echo "<td align='center'>".$value."</td>";
+					 			$temp_id_staff = $value;
 					 		}
 					 		elseif ($key == "Gaji_per_bulan"){
 
 					 		}
-					 		else
+					 		elseif($key == "Jenis_Kelamin")
 					 		{
 					 			echo "<td align='center'>".$value."</td>";
 					 		}
 					 	}
-					 	echo "<td align='center'><a class='btn btn-default' href='absen_staff/$temp_nomor_staff'> Laporan Absen </a></td>";
-					 	echo "<td align='center'><a class='btn btn-info' href='edit_data_staff/$temp_nomor_staff'> Edit </a></td>";
-					 	echo "<td align='center'><a class='btn btn-danger' href='hapus_staff/$temp_nomor_staff'> Hapus</a></td>";
+					 	echo "<td align='center'><a class='btn btn-default' href='laporan_absen_staff/$temp_id_staff'> Laporan Absen </a></td>";
+					 	echo "<td align='center'><a class='btn btn-info' href='edit_data_staff/$temp_nama_staff'> Edit </a></td>";
 					 	echo "</tr>";
 					 } 
 				?>

@@ -65,8 +65,6 @@
 					}
 				?>
 			</table>
-
-			?>
 		</div>
 		<div class="col-md-6 col-md-offset-1 well">
 			<?php $attributes = array("class" => "form-horizontal", "id" => "rubahjadwalform", "name" => "rubahprofilform");
